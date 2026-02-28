@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIS 2026 – Notif Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* FONT LOKAL */
+        @font-face {
+            font-family: 'Big Noodle Titling';
+            src: url('Assets/Font/big_noodle_titling.ttf') format('truetype');
+        }
+
+        :root {
+            --bg-dark: #050d1a;
+            --bg-panel: rgba(6, 20, 45, 0.55);
+            --border-glass: rgba(0, 160, 255, 0.18);
+            --border-bright: rgba(0, 200, 255, 0.45);
+
+            --blue-primary: #00c8ff;
+            --blue-glow: rgba(0, 200, 255, 0.45);
+            --blue-deep: #0050a0;
+
+            --red-accent: #F94868;
+            --red-glow: rgba(249, 72, 104, 0.45);
+
+            --green-active: #00ffa3;
+            --green-glow: rgba(0, 255, 163, 0.5);
+
+            --font-color: #ffffff;
+            --font-dim: rgba(255, 255, 255, 0.55);
+
+            --blob1: #0044cc;
+            --blob2: #00aaff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Big Noodle Titling', 'Inter', sans-serif;
+            color: var(--font-color);
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(ellipse 80% 60% at 10% 20%, rgba(0, 80, 200, 0.3) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 90% 80%, rgba(0, 180, 255, 0.2) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ── ANIMATED BLOBS ── */
+        .blob-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: 0.25;
+            animation: blob-float 22s infinite ease-in-out alternate;
+        }
+
+        .blob:nth-child(1) {
+            width: 500px;
+            height: 500px;
+            top: -8%;
+            left: 5%;
+            background: radial-gradient(circle, var(--blob2), var(--blob1));
+            animation-duration: 18s;
+        }
+
+        .blob:nth-child(2) {
+            width: 600px;
+            height: 600px;
+            bottom: -10%;
+            right: 0%;
+            background: radial-gradient(circle, var(--blue-primary), #003080);
+            animation-delay: 3s;
+            animation-duration: 24s;
+        }
+
+        @keyframes blob-float {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(40px, -30px) scale(1.15);
+            }
+        }
+
+        /* ── LAYOUT ── */
+        .main-container {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+            z-index: 1;
+            padding: 24px;
+        }
+
+        /* ── GLASS PANEL ── */
+        .transparent-panel {
+            background: var(--bg-panel);
+            backdrop-filter: blur(22px) saturate(1.6);
+            -webkit-backdrop-filter: blur(22px) saturate(1.6);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow:
+                0 0 0 1px rgba(0, 200, 255, 0.06) inset,
+                0 8px 40px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(0, 100, 255, 0.08);
+        }
+
+        /* ── CONTROL PANEL (Objective) ── */
+        .control-panel {
+            width: 460px;
+        }
+
+        .status-bar {
+            background: rgba(0, 0, 0, 0.35);
+            text-align: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-glass);
+            letter-spacing: 2px;
+        }
+
+        #status {
+            font-size: 2.4em;
+            color: var(--blue-primary);
+            font-style: oblique;
+            text-shadow: 0 0 14px var(--blue-glow);
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .controls-body {
+            display: flex;
+            padding: 20px;
+            gap: 14px;
+        }
+
+        .separator {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--border-bright), transparent);
+            opacity: 0.5;
+        }
+
+        .objective-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .sub-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .sub-buttons button {
+            flex: 1;
+            height: 140px;
+        }
+
+        /* ── BUTTONS (General) ── */
+        button {
+            width: 100%;
+            padding: 14px 10px;
+            font-family: 'Big Noodle Titling', sans-serif;
+            font-size: 1.25em;
+            letter-spacing: 1px;
+            border: 1.5px solid var(--border-glass);
+            border-radius: 10px;
+            background: rgba(0, 140, 255, 0.07);
+            color: var(--font-color);
+            cursor: pointer;
+            transition: all 0.22s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 200, 255, 0.07) 0%, transparent 70%);
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        button:hover {
+            transform: translateY(-2px) scale(1.02);
+            border-color: var(--blue-primary);
+            background: rgba(0, 180, 255, 0.15);
+            box-shadow: 0 0 18px var(--blue-glow), 0 4px 20px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Objective accent buttons */
+        .blue-side-btn {
+            border-color: rgba(0, 175, 255, 0.4);
+            color: #a8e8ff;
+        }
+
+        .blue-side-btn:hover {
+            border-color: var(--blue-primary);
+            background: rgba(0, 180, 255, 0.18);
+            box-shadow: 0 0 18px var(--blue-glow);
+            color: #fff;
+        }
+
+        .red-side-btn {
+            border-color: rgba(249, 72, 104, 0.4);
+            color: #ffb3c0;
+        }
+
+        .red-side-btn:hover {
+            border-color: var(--red-accent);
+            background: rgba(249, 72, 104, 0.18);
+            box-shadow: 0 0 18px var(--red-glow);
+            color: #fff;
+        }
+
+        /* ── KILL NOTIFIER PANEL ── */
+        .kill-notifier {
+            width: 980px;
+        }
+
+        .notifier-header {
+            background: rgba(0, 0, 0, 0.35);
+            font-size: 4.5em;
+            text-align: center;
+            padding: 8px 0;
+            font-style: oblique;
+            letter-spacing: 3px;
+            border-bottom: 1px solid var(--border-glass);
+            color: var(--font-color);
+            text-shadow: 0 0 20px var(--blue-glow);
+        }
+
+        .notifier-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            padding: 22px;
+        }
+
+        .notifier-buttons button {
+            flex: 1;
+            max-width: 145px;
+            height: 190px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1.5px solid var(--border-glass);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.45em;
+            letter-spacing: 1px;
+        }
+
+        .notifier-buttons button:hover {
+            border-color: var(--green-active);
+            box-shadow: 0 0 22px var(--green-glow), 0 4px 20px rgba(0, 0, 0, 0.35);
+            background: rgba(0, 255, 163, 0.1);
+            color: var(--green-active);
+        }
+
+        /* ── LOGO ── */
+        .overlaytoollogo {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-top: 16px;
+            z-index: 1;
+        }
+
+        .overlaytoollogo img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            body {
+                display: block;
+                padding: 20px 10px;
+                overflow-y: auto;
+                min-height: auto;
+            }
+
+            .main-container {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+                padding: 0;
+            }
+
+            .control-panel,
+            .kill-notifier {
+                width: 100%;
+                max-width: 500px;
+            }
+
+            #status {
+                font-size: 2em;
+            }
+
+            .notifier-header {
+                font-size: 2.5em;
+            }
+
+            .controls-body {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .separator {
+                display: none;
+            }
+
+            .notifier-buttons {
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 15px;
+            }
+
+            .notifier-buttons button {
+                height: 100px;
+                font-size: 1.2em;
+                flex-basis: calc(50% - 5px);
+                max-width: none;
+            }
+
+            button {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blob-container">
+        <div class="blob"></div>
+        <div class="blob"></div>
+    </div>
+    <div class="main-container">
+        <div class="control-panel transparent-panel">
+            <div class="status-bar">
+                <div id="status">Standby</div>
+            </div>
+            <div class="controls-body">
+                <div class="objective-column">
+                    <button onclick="setVideo('videoPlayer1')">Turtle Spawn</button>
+                    <div class="sub-buttons">
+                        <button class="blue-side-btn" onclick="setVideo('videoPlayer2')">Blue Turtle Slain</button>
+                        <button class="red-side-btn" onclick="setVideo('videoPlayer3')">Red Turtle Slain</button>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <div class="objective-column">
+                    <button onclick="setVideo('videoPlayer4')">Lord Spawn</button>
+                    <div class="sub-buttons">
+                        <button class="blue-side-btn" onclick="setVideo('videoPlayer5')">Blue Lord Slain</button>
+                        <button class="red-side-btn" onclick="setVideo('videoPlayer6')">Red Lord Slain</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kill-notifier transparent-panel">
+            <div class="notifier-header"> MWEHEHEHEHEH </div>
+            <div class="notifier-buttons">
+                <button onclick="setVideo('videoPlayer7')">First blood</button>
+                <button onclick="setVideo('videoPlayer8')">doublekill</button>
+                <button onclick="setVideo('videoPlayer9')">Triple Kill</button>
+                <button onclick="setVideo('videoPlayer10')">Maniac</button>
+                <button onclick="setVideo('videoPlayer11')">Savage</button>
+                <button onclick="setVideo('videoPlayer12')">Wipe Out</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlaytoollogo">
+        <img src="Assets/Other/OVERLAYTOOLLOGO.png" alt="">
+    </div>
+
+    <script>
+        // MENGIRIM PERINTAH KE SERVER NODE.JS
+        async function setVideo(playerId) {
+            updateStatus(`SENDING ${playerId.replace('videoPlayer', '')}...`);
+
+            try {
+                const response = await fetch('/api/notification', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ videoId: playerId })
+                });
+
+                if (response.ok) {
+                    updateStatus(`PLAYING M${playerId.replace('videoPlayer', '')}`);
+                    // Kembalikan status ke standby setelah 3 detik
+                    setTimeout(() => {
+                        updateStatus('Standby');
+                    }, 3000);
+                } else {
+                    updateStatus('ERROR SENDING');
+                }
+            } catch (error) {
+                console.error('Connection Error:', error);
+                updateStatus('SERVER ERROR');
+            }
+        }
+
+        function updateStatus(message) {
+            document.getElementById('status').textContent = `${message}`;
+        }
+
+        // KEYBOARD SHORTCUTS
+        document.addEventListener('keydown', (event) => {
+            const functionKeys = {
+                'w': 'videoPlayer1', 'a': 'videoPlayer2', 's': 'videoPlayer3',
+                'r': 'videoPlayer4', 'd': 'videoPlayer5', 'f': 'videoPlayer6',
+                '1': 'videoPlayer7', '2': 'videoPlayer8', '3': 'videoPlayer9',
+                '4': 'videoPlayer10', '5': 'videoPlayer11', '6': 'videoPlayer12'
+            };
+            // Cek jika key ada di daftar dan tidak sedang mengetik di input field (jika ada)
+            if (functionKeys[event.key] && event.target.tagName !== 'INPUT') {
+                event.preventDefault();
+                setVideo(functionKeys[event.key]);
+            }
+        });
+    </script>
+</body>
+
+</html>
