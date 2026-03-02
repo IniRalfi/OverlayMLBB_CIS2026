@@ -3,7 +3,7 @@
   "game_number": "1",
   "teamdata": {
     "blueteam": {
-      "teamname": "aaa",
+      "teamname": "",
       "score": "",
       "logo": "",
       "totalgold": 0,
@@ -12,10 +12,10 @@
       "turtle": 0,
       "playerlist": [
         {
-          "name": "VII",
+          "name": "",
           "lane": "none",
-          "hero": "Joy",
-          "banhero": "Alucard",
+          "hero": "",
+          "banhero": "",
           "level": 0,
           "gold": 0,
           "KDA": "0/0/0",
@@ -32,8 +32,8 @@
         {
           "name": "",
           "lane": "none",
-          "hero": "Sora",
-          "banhero": "Joy",
+          "hero": "",
+          "banhero": "",
           "level": 0,
           "gold": 0,
           "KDA": "0/0/0",
@@ -50,7 +50,7 @@
         {
           "name": "",
           "lane": "none",
-          "hero": "Johnson",
+          "hero": "",
           "banhero": "",
           "level": 0,
           "gold": 0,
@@ -115,8 +115,8 @@
         {
           "name": "",
           "lane": "none",
-          "hero": "Alucard",
-          "banhero": "Hilda",
+          "hero": "",
+          "banhero": "",
           "level": 0,
           "gold": 0,
           "KDA": "0/0/0",
@@ -133,8 +133,8 @@
         {
           "name": "",
           "lane": "none",
-          "hero": "Eudora",
-          "banhero": "Sora",
+          "hero": "",
+          "banhero": "",
           "level": 0,
           "gold": 0,
           "KDA": "0/0/0",

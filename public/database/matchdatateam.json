@@ -3,7 +3,7 @@
   "game_number": "1",
   "teamdata": {
     "blueteam": {
-      "teamname": "",
+      "teamname": "Sepeda Gacor",
       "score": "",
       "logo": "",
       "totalgold": 0,
@@ -12,10 +12,10 @@
       "turtle": 0,
       "playerlist": [
         {
-          "name": "",
-          "lane": "none",
+          "name": "Fahdil",
+          "lane": "junggle",
           "hero": "",
-          "banhero": "",
+          "banhero": "Alucard",
           "level": 0,
           "gold": 0,
           "KDA": "0/0/0",
@@ -30,10 +30,10 @@
           ]
         },
         {
-          "name": "",
-          "lane": "none",
+          "name": "Nabil",
+          "lane": "gold",
           "hero": "",
-          "banhero": "",
+          "banhero": "Joy",
           "level": 0,
           "gold": 0,
           "KDA": "0/0/0",
@@ -48,8 +48,8 @@
           ]
         },
         {
-          "name": "",
-          "lane": "none",
+          "name": "Rafi",
+          "lane": "mid",
           "hero": "",
           "banhero": "",
           "level": 0,
@@ -66,8 +66,8 @@
           ]
         },
         {
-          "name": "",
-          "lane": "none",
+          "name": "Frans",
+          "lane": "mid",
           "hero": "",
           "banhero": "",
           "level": 0,
@@ -84,8 +84,8 @@
           ]
         },
         {
-          "name": "",
-          "lane": "none",
+          "name": "Yusuf",
+          "lane": "exp",
           "hero": "",
           "banhero": "",
           "level": 0,
@@ -104,7 +104,7 @@
       ]
     },
     "redteam": {
-      "teamname": "",
+      "teamname": "Harmonia",
       "score": "",
       "logo": "",
       "totalgold": 0,
@@ -113,7 +113,43 @@
       "turtle": 0,
       "playerlist": [
         {
-          "name": "",
+          "name": "Rafli",
+          "lane": "none",
+          "hero": "",
+          "banhero": "Hilda",
+          "level": 0,
+          "gold": 0,
+          "KDA": "0/0/0",
+          "spell": "",
+          "itemlist": [
+            "idle",
+            "idle",
+            "idle",
+            "idle",
+            "idle",
+            "idle"
+          ]
+        },
+        {
+          "name": "Fraon",
+          "lane": "none",
+          "hero": "",
+          "banhero": "Sora",
+          "level": 0,
+          "gold": 0,
+          "KDA": "0/0/0",
+          "spell": "",
+          "itemlist": [
+            "idle",
+            "idle",
+            "idle",
+            "idle",
+            "idle",
+            "idle"
+          ]
+        },
+        {
+          "name": "sjdhaihidd",
           "lane": "none",
           "hero": "",
           "banhero": "",
@@ -131,7 +167,7 @@
           ]
         },
         {
-          "name": "",
+          "name": "sfae",
           "lane": "none",
           "hero": "",
           "banhero": "",
@@ -149,43 +185,7 @@
           ]
         },
         {
-          "name": "",
-          "lane": "none",
-          "hero": "",
-          "banhero": "",
-          "level": 0,
-          "gold": 0,
-          "KDA": "0/0/0",
-          "spell": "",
-          "itemlist": [
-            "idle",
-            "idle",
-            "idle",
-            "idle",
-            "idle",
-            "idle"
-          ]
-        },
-        {
-          "name": "",
-          "lane": "none",
-          "hero": "",
-          "banhero": "",
-          "level": 0,
-          "gold": 0,
-          "KDA": "0/0/0",
-          "spell": "",
-          "itemlist": [
-            "idle",
-            "idle",
-            "idle",
-            "idle",
-            "idle",
-            "idle"
-          ]
-        },
-        {
-          "name": "",
+          "name": "sfaefsd",
           "lane": "none",
           "hero": "",
           "banhero": "",

@@ -2,14 +2,14 @@
   "draftdata": {
     "timer": "60",
     "timerRunning": false,
-    "current_phase": 0,
+    "current_phase": 4,
     "blueside": {
       "ban": [
         {
-          "hero": ""
+          "hero": "/Assets/HeroPick/alucard.png"
         },
         {
-          "hero": ""
+          "hero": "/Assets/HeroPick/joy.png"
         },
         {
           "hero": ""
@@ -42,10 +42,10 @@
     "redside": {
       "ban": [
         {
-          "hero": ""
+          "hero": "/Assets/HeroPick/hilda.png"
         },
         {
-          "hero": ""
+          "hero": "/Assets/HeroPick/sora.png"
         },
         {
           "hero": ""

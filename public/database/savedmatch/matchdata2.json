@@ -14,7 +14,7 @@
         {
           "name": "VII",
           "lane": "none",
-          "hero": "",
+          "hero": "Joy",
           "banhero": "Alucard",
           "level": 0,
           "gold": 0,
@@ -32,7 +32,7 @@
         {
           "name": "",
           "lane": "none",
-          "hero": "",
+          "hero": "Sora",
           "banhero": "Joy",
           "level": 0,
           "gold": 0,
@@ -50,7 +50,7 @@
         {
           "name": "",
           "lane": "none",
-          "hero": "",
+          "hero": "Johnson",
           "banhero": "",
           "level": 0,
           "gold": 0,
@@ -115,7 +115,7 @@
         {
           "name": "",
           "lane": "none",
-          "hero": "",
+          "hero": "Alucard",
           "banhero": "Hilda",
           "level": 0,
           "gold": 0,
@@ -133,7 +133,7 @@
         {
           "name": "",
           "lane": "none",
-          "hero": "",
+          "hero": "Eudora",
           "banhero": "Sora",
           "level": 0,
           "gold": 0,

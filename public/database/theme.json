@@ -1,36 +1,82 @@
 {
   "fontFile": "Renegade Pursuit.otf",
   "useCustomFont": false,
+  "fontSizeMultiplier": 1.0,
   "images": {
-    "heroPickBg": ""
+    "heroPickBg": "",
+    "lowerBg": "",
+    "lowerMidBg": ""
   },
   "colors": {
-    "bluePrimary": "#00d2ff",
-    "blueDark": "#003e4d",
-    "redPrimary": "#ff2a2a",
-    "redDark": "#4d0000",
-    "scoreBlue": "#00d2ff",
-    "scoreRed": "#ff2a2a",
-    "upperBg": "#000000",
-    "lowerBg": "#0a0a0a",
-    "heroPickBg": "#1e1e1e",
-    "logoTeamBg": "#000000",
-    "laneIconColor": "#f00000",
-    "auraBan": "#ff0000",
-    "auraPick": "#ffffff"
+    "bluePrimary": "#00c8ff",
+    "blueDark": "#002864",
+    "redPrimary": "#ff2a4a",
+    "redDark": "#4d0012",
+    "scoreBlue": "#00c8ff",
+    "scoreRed": "#ff2a4a",
+    "upperBg": "#00122c",
+    "lowerBg": "#000a23",
+    "lowerMidBg": "#00123c",
+    "heroPickBg": "#00123c",
+    "logoTeamBg": "#000e32",
+    "postDraftBg": "#00112a",
+    "playerNameBg": "#000c2d",
+    "laneLogoBg": "rgba(0,0,0,0.7)",
+    "timerBlue": "#00c8ff",
+    "timerMid": "#0064aa",
+    "timerRed": "#0050c8",
+    "playerName": "#ffffff",
+    "phaseText": "#ffffff",
+    "laneIconType": "white",
+    "laneLogoBorder": "#00c8ff",
+    "auraBan": "#ff2a4a",
+    "auraPick": "#00c8ff",
+    "globalBorder": "rgba(0, 200, 255, 0.35)"
   },
   "opacity": {
-    "upper": "100",
-    "lower": "100",
-    "heroPick": "100",
-    "logoTeam": "60"
+    "upper": 100,
+    "lower": 100,
+    "heroPick": 100,
+    "logoTeam": 80,
+    "postDraft": 100
   },
   "toggles": {
     "hideLaneLogo": false,
-    "disableGlow": false
+    "disableGlow": false,
+    "hidePattern": false,
+    "hidePostDraftBg": false,
+    "disableBoxShadow": false
+  },
+  "gradients": {
+    "upperBg": { "enabled": false, "colorB": "#001a4d", "angle": 180 },
+    "lowerBg": { "enabled": false, "colorB": "#001540", "angle": 180 },
+    "lowerMidBg": { "enabled": false, "colorB": "#001a50", "angle": 180 },
+    "heroPickBg": { "enabled": false, "colorB": "#001a50", "angle": 180 },
+    "logoTeamBg": { "enabled": false, "colorB": "#001238", "angle": 180 },
+    "sbBgTeamName": { "enabled": false, "colorB": "#001a50", "angle": 90 },
+    "sbBgLogo": { "enabled": false, "colorB": "#001238", "angle": 90 },
+    "sbBgScore": { "enabled": false, "colorB": "#000e30", "angle": 90 },
+    "sbBgCombined": { "enabled": false, "colorB": "#001030", "angle": 90 },
+    "sbBgBox1": { "enabled": false, "colorB": "#001a50", "angle": 90 },
+    "sbBgSecondary": { "enabled": false, "colorB": "#001a50", "angle": 90 }
+  },
+  "scoreboard": {
+    "teamNameBlue": "#00c8ff",
+    "teamNameRed": "#ff2a4a",
+    "bgTeamName": "#00123c",
+    "bgLogo": "#000e32",
+    "bgScore": "#000a23",
+    "bgCombined": "#000c2d",
+    "bgBox1": "#00123c",
+    "bgSecondary": "#00123c",
+    "borderBottom": "rgba(0, 200, 255, 0.35)",
+    "activeFlag": "indonesia.png",
+    "disableGlow": false,
+    "disableShadow": false
   },
   "animations": {
     "banType": "pulse",
-    "pickType": "pulse"
+    "pickType": "pulse",
+    "heroAnim": "fade"
   }
 }
