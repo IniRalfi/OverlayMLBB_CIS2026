@@ -8,11 +8,11 @@
     "lowerMidBg": ""
   },
   "colors": {
-    "bluePrimary": "#00c8ff",
+    "bluePrimary": "#00ddff",
     "blueDark": "#002864",
     "redPrimary": "#ff2a4a",
     "redDark": "#4d0012",
-    "scoreBlue": "#00c8ff",
+    "scoreBlue": "#00ddff",
     "scoreRed": "#ff2a4a",
     "upperBg": "#00122c",
     "lowerBg": "#000a23",
@@ -22,16 +22,16 @@
     "postDraftBg": "#00112a",
     "playerNameBg": "#000c2d",
     "laneLogoBg": "rgba(0,0,0,0.7)",
-    "timerBlue": "#00c8ff",
+    "timerBlue": "#00ddff",
     "timerMid": "#0064aa",
     "timerRed": "#0050c8",
     "playerName": "#ffffff",
     "phaseText": "#ffffff",
     "laneIconType": "white",
-    "laneLogoBorder": "#00c8ff",
+    "laneLogoBorder": "#00ddff",
     "auraBan": "#ff2a4a",
-    "auraPick": "#00c8ff",
-    "globalBorder": "rgba(0, 200, 255, 0.35)"
+    "auraPick": "#00ddff",
+    "globalBorder": "rgba(0, 220, 255, 0.45)"
   },
   "opacity": {
     "upper": 100,
@@ -61,15 +61,15 @@
     "sbBgSecondary": { "enabled": false, "colorB": "#001a50", "angle": 90 }
   },
   "scoreboard": {
-    "teamNameBlue": "#00c8ff",
+    "teamNameBlue": "#00ddff",
     "teamNameRed": "#ff2a4a",
-    "bgTeamName": "#00123c",
-    "bgLogo": "#000e32",
-    "bgScore": "#000a23",
-    "bgCombined": "#000c2d",
-    "bgBox1": "#00123c",
-    "bgSecondary": "#00123c",
-    "borderBottom": "rgba(0, 200, 255, 0.35)",
+    "bgTeamName": "#00153f",
+    "bgLogo": "#001040",
+    "bgScore": "#000c28",
+    "bgCombined": "#000e30",
+    "bgBox1": "#00153f",
+    "bgSecondary": "#00153f",
+    "borderBottom": "rgba(0, 220, 255, 0.55)",
     "activeFlag": "indonesia.png",
     "disableGlow": false,
     "disableShadow": false

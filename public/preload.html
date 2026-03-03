@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIS Competition - Preload</title>
+  <link rel="stylesheet" href="preload.css">
+</head>
+
+<body>
+
+  <!-- BG effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow-left"></div>
+  <div class="bg-glow-right"></div>
+
+  <!-- Corner decorations -->
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <!-- ══ TOP HEADER ══ -->
+  <div class="top-bar">
+
+    <div class="header-logo">
+      <!-- Slot logo CIS — pasang gambar di sini -->
+      <div class="cis-logo-box">
+        <img id="cis-logo" src="Assets/Other/tourlogo.png" alt="CIS Logo">
+      </div>
+      <div class="header-title-group">
+        <span class="header-cis">CIS Competition 2026</span>
+        <span class="header-main-title">Celebration Of Information System</span>
+      </div>
+    </div>
+
+    <div class="preload-badge">PRELOAD</div>
+
+    <div class="match-label">
+      <div style="margin-bottom:4px;">PRESENTING</div>
+      <div class="match-type-text" id="match-type-display">MOBILE LEGENDS</div>
+    </div>
+
+  </div>
+
+  <!-- ══ MAIN CONTENT ══ -->
+  <div class="main">
+
+    <!-- BLUE TEAM -->
+    <div class="team-panel blue-panel">
+      <div class="team-logo">
+        <img id="preload-logo1" src="" alt="Team Logo 1" onerror="this.style.display='none'">
+      </div>
+      <div class="team-name" id="preload-team1">TEAM BLUE</div>
+      <div class="team-score-label">CURRENT SCORE</div>
+      <div class="team-score" id="preload-score1">0</div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="center-panel">
+      <div class="match-info" id="preload-matchinfo">BEST OF 3</div>
+
+      <div class="vs-block">
+        <div class="vs-line"></div>
+        <div class="vs-text">VS</div>
+        <div class="vs-line"></div>
+      </div>
+
+      <div class="countdown-label">DIMULAI DALAM</div>
+      <div class="countdown-box">
+        <div class="countdown-time" id="countdown-display">10:00</div>
+      </div>
+
+      <div class="match-info" style="margin-top:10px; font-size:13px; letter-spacing:2px; color:rgba(255,255,255,0.4);">
+        CIS COMPETITION 2026
+      </div>
+    </div>
+
+    <!-- RED TEAM -->
+    <div class="team-panel red-panel">
+      <div class="team-logo"
+        style="border-color: rgba(255,60,90,0.6); box-shadow: 0 0 30px rgba(255,60,90,0.35), inset 0 0 20px rgba(255,60,90,0.05);">
+        <img id="preload-logo2" src="" alt="Team Logo 2" onerror="this.style.display='none'">
+      </div>
+      <div class="team-name" id="preload-team2">TEAM RED</div>
+      <div class="team-score-label">CURRENT SCORE</div>
+      <div class="team-score" id="preload-score2">0</div>
+    </div>
+
+  </div>
+
+  <!-- ══ BOTTOM TICKER ══ -->
+  <div class="bottom-bar">
+    <div class="ticker-track" id="ticker">
+      <span class="ticker-item">
+        <span class="ticker-dot"></span>
+        CIS COMPETITION 2026
+        <span class="ticker-dot"></span>
+        MOBILE LEGENDS BANG BANG
+        <span class="ticker-dot"></span>
+        <span id="ticker-team1">TEAM BLUE</span>
+        VS
+        <span id="ticker-team2">TEAM RED</span>
+        <span class="ticker-dot"></span>
+        BERSIAP UNTUK PERTANDINGAN
+        <span class="ticker-dot"></span>
+        CLASH OF INTELLIGENCE SERIES
+      </span>
+      <!-- Duplikat untuk seamless loop -->
+      <span class="ticker-item">
+        <span class="ticker-dot"></span>
+        CIS COMPETITION 2026
+        <span class="ticker-dot"></span>
+        MOBILE LEGENDS BANG BANG
+        <span class="ticker-dot"></span>
+        <span class="ticker-team1-clone">TEAM BLUE</span>
+        VS
+        <span class="ticker-team2-clone">TEAM RED</span>
+        <span class="ticker-dot"></span>
+        BERSIAP UNTUK PERTANDINGAN
+        <span class="ticker-dot"></span>
+        CLASH OF INTELLIGENCE SERIES
+      </span>
+    </div>
+  </div>
+
+  <!-- Hidden data nodes — diisi oleh displaynicknamelogo.js -->
+  <div style="display:none;">
+    <div id="name-box-1" class="name-box"></div>
+    <div id="name-box-2" class="name-box"></div>
+    <div id="name-box-8" class="name-box"></div>
+    <div id="name-box-9" class="name-box"></div>
+  </div>
+
+  <script src="script/displaynicknamelogo.js"></script>
+
+  <script src="crossclient.js"></script>
+  <script>
+    /* ══════════════════════
+       COUNTDOWN ENGINE
+    ══════════════════════ */
+    let cdInterval = null;
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function runCountdown(targetTs) {
+      clearInterval(cdInterval);
+      const el = document.getElementById('countdown-display');
+      cdInterval = setInterval(() => {
+        const left = Math.max(0, Math.round((targetTs - Date.now()) / 1000));
+        el.textContent = `${pad(Math.floor(left / 60))}:${pad(left % 60)}`;
+        el.style.color = '';
+        if (left <= 0) {
+          clearInterval(cdInterval);
+          el.textContent = 'MULAI!';
+          el.style.color = '#ffd700';
+        }
+      }, 500);
+    }
+
+    function setStaticCountdown(sec) {
+      clearInterval(cdInterval);
+      const el = document.getElementById('countdown-display');
+      el.textContent = `${pad(Math.floor(sec / 60))}:${pad(sec % 60)}`;
+      el.style.color = '';
+    }
+
+    /* ══════════════════════
+       APPLY PRELOAD DATA dari control
+    ══════════════════════ */
+    function applyPreloadData(d) {
+      if (!d) return;
+
+      // Countdown
+      if (d.paused && d.countdownRemaining !== undefined) {
+        setStaticCountdown(d.countdownRemaining);
+      } else if (d.countdownTarget) {
+        runCountdown(d.countdownTarget);
+      }
+
+      // Match Info & Type
+      if (d.matchInfo) document.getElementById('preload-matchinfo').textContent = d.matchInfo;
+      if (d.matchType) document.getElementById('match-type-display').textContent = d.matchType;
+
+      // Ticker custom
+      if (d.ticker && d.ticker.trim()) {
+        const dot = `<span class="ticker-dot"></span>`;
+        const text = d.ticker.toUpperCase();
+        document.getElementById('ticker').innerHTML = `
+          <span class="ticker-item">${dot}${text}${dot}${text}${dot}${text}${dot}${text}</span>
+          <span class="ticker-item">${dot}${text}${dot}${text}${dot}${text}${dot}${text}</span>`;
+      }
+    }
+
+    /* ══════════════════════
+       UPDATE TIM & SKOR
+    ══════════════════════ */
+    window.updateDisplay = function () {
+      const nb1 = document.getElementById('name-box-1');
+      const nb2 = document.getElementById('name-box-2');
+      const nb8 = document.getElementById('name-box-8');
+      const nb9 = document.getElementById('name-box-9');
+      const img1 = document.getElementById('displayImage1');
+      const img2 = document.getElementById('displayImage2');
+
+      const team1 = (nb1?.textContent?.trim()) || localStorage.getItem('name-box-1') || 'TEAM BLUE';
+      const team2 = (nb8?.textContent?.trim()) || localStorage.getItem('name-box-8') || 'TEAM RED';
+      const score1 = (nb2?.textContent?.trim()) || localStorage.getItem('name-box-2') || '0';
+      const score2 = (nb9?.textContent?.trim()) || localStorage.getItem('name-box-9') || '0';
+
+      document.getElementById('preload-team1').textContent = team1.toUpperCase();
+      document.getElementById('preload-team2').textContent = team2.toUpperCase();
+      document.getElementById('preload-score1').textContent = score1;
+      document.getElementById('preload-score2').textContent = score2;
+      document.getElementById('ticker-team1').textContent = team1.toUpperCase();
+      document.getElementById('ticker-team2').textContent = team2.toUpperCase();
+      document.querySelectorAll('.ticker-team1-clone').forEach(el => el.textContent = team1.toUpperCase());
+      document.querySelectorAll('.ticker-team2-clone').forEach(el => el.textContent = team2.toUpperCase());
+
+      // Logo sync dari displayImage yang diisi displaynicknamelogo.js
+      const logo1src = img1?.src || '';
+      const logo2src = img2?.src || '';
+      if (logo1src && !logo1src.endsWith('/') && !logo1src.includes('nologo')) {
+        const el = document.getElementById('preload-logo1'); el.src = logo1src; el.style.display = 'block';
+      }
+      if (logo2src && !logo2src.endsWith('/') && !logo2src.includes('nologo')) {
+        const el = document.getElementById('preload-logo2'); el.src = logo2src; el.style.display = 'block';
+      }
+    };
+
+    /* ══════════════════════
+       INIT + POLLING — ambil data dari /api/preload setiap 500ms
+    ══════════════════════ */
+    let _lastPreloadState = '';
+
+    async function pollPreload() {
+      try {
+        const res = await fetch('/api/preload?t=' + Date.now());
+        if (!res.ok) return;
+        const d = await res.json();
+        const hash = JSON.stringify(d);
+        if (hash !== _lastPreloadState) {
+          _lastPreloadState = hash;
+          applyPreloadData(d);
+        }
+      } catch (e) { /* server belum siap, abaikan */ }
+    }
+
+    // Load pertama kali
+    pollPreload();
+    // Poll tiap 500ms untuk real-time update dari preloadcontrol
+    setInterval(pollPreload, 500);
+
+    window.updateDisplay();
+  </script>
+
+</body>
+
+</html>

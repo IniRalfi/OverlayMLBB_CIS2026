@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Display Panel Ban6</title>
 </head>
 
 <body>
@@ -33,7 +33,6 @@
                         <div id="ban-left-3" class="box ban0"></div>
                     </div>
 
-
                 </div>
 
                 <div class="teamnameholder1">
@@ -52,7 +51,6 @@
                 </div>
 
                 <div class="banholder">
-
 
                     <div class="banhero">
                         <div id="image-box-18" class="image-box"><img id="image-display-18" src=""></div>
@@ -269,49 +267,23 @@
         onclick="const a=document.getElementById('hero-voice'); a.muted=false; a.play().catch(()=>{}); this.style.display='none';">🔊
         Enable Audio</button>
 
-
-
     <div class="phasebox">
         <h2 id="phase"></h2>
 
 
-
-
+        <!-- Elemen tersembunyi untuk menampung slot ban/pick yang tidak tampil di UI tapi dibutuhkan script -->
         <div class="hide">
+            <!-- Ban blue slot 4 & 5 (tidak dipakai di format ban6 ini) -->
+            <div id="image-box-14" class="image-box"><img id="image-display-14" src=""></div>
+            <div id="ban-left-4" class="box ban0"></div>
             <div id="image-box-15" class="image-box"><img id="image-display-15" src=""></div>
             <div id="ban-left-5" class="box ban0"></div>
 
+            <!-- Ban red slot 4 & 5 (tidak dipakai di format ban6 ini) -->
+            <div id="image-box-19" class="image-box"><img id="image-display-19" src=""></div>
+            <div id="ban-right-4" class="box ban0"></div>
             <div id="image-box-20" class="image-box"><img id="image-display-20" src=""></div>
             <div id="ban-right-5" class="box ban0"></div>
-
-            <div class="banhero">
-                <div id="image-box-20" class="image-box"><img id="image-display-20" src=""></div>
-                <div id="ban-right-5" class="box ban0"></div>
-            </div>
-            <div class="banhero">
-                <div id="image-box-19" class="image-box"><img id="image-display-19" src=""></div>
-                <div id="ban-right-4" class="box ban0"></div>
-            </div>
-
-            <div class="banhero">
-                <div id="image-box-14" class="image-box"><img id="image-display-14" src=""></div>
-                <div id="ban-left-4" class="box ban0"></div>
-            </div>
-
-            <div class="banhero">
-                <div id="image-box-15" class="image-box"><img id="image-display-15" src=""></div>
-                <div id="ban-left-5" class="box ban0"></div>
-            </div>
-
-            <div class="heropick">
-                <div id="image-box-4" class="image-box"><img id="image-display-4" src=""></div>
-                <div id="pick-left-4" class="box pick"></div>
-            </div>
-            <div class="heropick">
-                <div id="image-box-5" class="image-box"><img id="image-display-5" src=""></div>
-                <div id="pick-left-5" class="box pick"></div>
-            </div>
-
         </div>
 
 </body>

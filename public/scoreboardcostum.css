@@ -1,227 +1,338 @@
 @font-face {
-    font-family: 'myfonts';
-    src: url('Assets/Font/Renegade\ Pursuit.otf') format('truetype');
+  font-family: "myfonts";
+  src: url("Assets/Font/Renegade\ Pursuit.otf") format("truetype");
 }
 
-/* === VARIABEL SCOREBOARD === */
+/* === VARIABEL SCOREBOARD — CIS 2026 BLUE THEME === */
 :root {
-    /* Main Variables (Fallback) */
-    --blue-primary: #00d2ff; 
-    --red-primary: #ff2a2a;
-    
-    /* Scoreboard Specific (Diisi oleh theme-loader.js) */
-    --sb-teamname-blue: var(--blue-primary);
-    --sb-teamname-red: var(--red-primary);
-    
-    --sb-bg-teamname: #1e1e1e;
-    --sb-bg-logo: #000000;
-    --sb-bg-score: #000000;
-    --sb-bg-combined: #0a0a0a; /* Box 2 & Lower */
-    --sb-bg-box1: #1e1e1e;
-    --sb-bg-secondary: #1e1e1e;
-    
-    --sb-border-bottom: rgba(255, 255, 255, 0.2);
-    --sb-flag-img: none;
-    
-    /* Scoreboard Toggles */
-    --sb-glow-blue: 0 0 10px var(--sb-teamname-blue);
-    --sb-glow-red: 0 0 10px var(--sb-teamname-red);
-    --sb-box-shadow-blue: 0 0 10px rgba(0, 210, 255, 0.2);
-    --sb-box-shadow-red: 0 0 10px rgba(255, 42, 42, 0.2);
+  /* Main Variables (Fallback CIS 2026) */
+  --blue-primary: #00eeff;
+  --red-primary: #ff2a4a;
+
+  /* Scoreboard Text Colors (Diisi oleh theme-loader.js) */
+  --sb-teamname-blue: #00eeff;
+  --sb-teamname-red: #ff2a4a;
+
+  /* Scoreboard Background Colors (Diisi oleh theme-loader.js) */
+  --sb-bg-teamname: #001845;
+  --sb-bg-logo: #001248;
+  --sb-bg-score: #000e2e;
+  --sb-bg-combined: #001038; /* Box 2 & Lower */
+  --sb-bg-box1: #001845;
+  --sb-bg-secondary: #001845;
+
+  --sb-border-bottom: rgba(0, 238, 255, 0.65);
+  --sb-flag-img: none;
+
+  /* Scoreboard Glow & Shadow */
+  --sb-glow-blue: 0 0 16px rgba(0, 238, 255, 1);
+  --sb-glow-red: 0 0 16px rgba(255, 42, 74, 1);
+  --sb-box-shadow-blue: 0 0 22px rgba(0, 238, 255, 0.45);
+  --sb-box-shadow-red: 0 0 22px rgba(255, 42, 74, 0.45);
 }
 
 body {
-    font-family: myfonts;
-    color: #fff;
-    margin: 0;
-    padding: 0;
+  font-family: myfonts;
+  color: #fff;
+  margin: 0;
+  padding: 0;
 }
 
 .mainbox {
-    width: 1920px;
-    height: 1080px;
-    display: flex;
+  width: 1920px;
+  height: 1080px;
+  display: flex;
 }
 
 .map {
-    width: 337.5px;
-    height: 337.5px;
+  width: 337.5px;
+  height: 337.5px;
+  border: 5px solid var(--sb-border-bottom);
+  box-shadow:
+    0 0 18px rgba(0, 220, 255, 0.15),
+    inset 0 0 12px rgba(0, 220, 255, 0.06);
+  box-sizing: border-box;
 }
 
 .board {
-    width: 1581.5px;
-    height: 126.5px;
-    display: flex;
+  width: 1581.5px;
+  height: 126.5px;
+  display: flex;
 }
 
 /* --- BOX 1 & FLAG --- */
 .box1 {
-    width: 104px;
-    height: 119.5px;
-    background: var(--sb-bg-box1); /* Configurable Box 1 */
-    
+  width: 104px;
+  height: 119.5px;
+  background: var(--sb-bg-box1); /* Configurable Box 1 */
+  border-right: 1px solid var(--sb-border-bottom);
+  box-shadow: inset -4px 0 12px rgba(0, 200, 255, 0.08);
 }
 
 .flag {
-    width: 104px;
-    height: 119px;
-    background-position: center;
-    background-size: 80%;
-    background-repeat: no-repeat;
-    background-image: var(--sb-flag-img); /* Configurable Image */
+  width: 104px;
+  height: 119px;
+  background-position: center;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-image: var(--sb-flag-img); /* Configurable Image */
 }
 
 /* --- MAIN SCOREBOARD --- */
 .mainscoreboard {
-    width: 1037.07px;
-    height: 119.5px;
-    display: flex;
-    flex-direction: column;
+  width: 1037.07px;
+  height: 119.5px;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--sb-border-bottom);
+  border-right: 1px solid var(--sb-border-bottom);
 }
 
 .upper {
-    width: 1037.07px;
-    height: 52.63px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
+  width: 1037.07px;
+  height: 52.63px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
 }
 
 /* --- BOX 2 (Color Matched with Lower) --- */
 .box2 {
-    width: 91px;
-    height: 52.63px;
-    padding: 10px;
-    position: absolute;
-    /* Box 2 ikut warna Lower/Combined */
-    background: var(--sb-bg-combined); 
-    border-bottom: 1px solid var(--sb-border-bottom); /* Opsional, agar konsisten */
+  width: 91px;
+  height: 52.63px;
+  padding: 10px;
+  position: absolute;
+  /* Box 2 ikut warna Lower/Combined */
+  background: var(--sb-bg-combined);
+  border-bottom: 1px solid var(--sb-border-bottom); /* Opsional, agar konsisten */
 }
 
 .box2.blue {
-    /* Indikator kecil tetap warna tim */
-    border-top: 4px solid var(--blue-primary);
+  /* Indikator kecil tetap warna tim */
+  border-top: 4px solid var(--blue-primary);
 }
 
 .box2.red {
-    border-top: 4px solid var(--red-primary);
+  border-top: 4px solid var(--red-primary);
 }
 
-.mb { left: -10px; }
-.mr { right: -10px; }
+.mb {
+  left: -10px;
+}
+.mr {
+  right: -10px;
+}
 
 .transparent {
-    width: 855.07px;
-    height: 52.63px;
+  width: 855.07px;
+  height: 52.63px;
 }
 
 /* --- LOWER BAR (Color Matched with Box 2) --- */
 .lower {
-    width: 1037.07px;
-    height: 39.87px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--sb-bg-combined); /* Configurable Combined */
+  width: 1037.07px;
+  height: 39.87px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sb-bg-combined); /* Configurable Combined */
 }
 
 .lowerwrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
 }
 
-.red { transform: skewX(-20deg); }
-.blue { transform: skewX(20deg); }
+.red {
+  transform: skewX(-20deg);
+}
+.blue {
+  transform: skewX(20deg);
+}
 
 /* --- SCORE BOX --- */
 .score {
-    width: 50px;
-    height: 47.66px;
-    background: var(--sb-bg-score); /* Configurable Score BG */
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-
+  width: 50px;
+  height: 47.66px;
+  background: var(--sb-bg-score); /* Configurable Score BG */
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
 }
 
 .score.blue {
-    color: var(--sb-teamname-blue); /* Ikut warna teamname/score */
-    text-shadow: var(--sb-glow-blue);
-    border-bottom: 3px solid var(--blue-primary);
+  color: var(--sb-teamname-blue); /* Ikut warna teamname/score */
+  text-shadow: var(--sb-glow-blue);
+  border-bottom: 3px solid var(--blue-primary);
 }
 
 .score.red {
-    color: var(--sb-teamname-red);
-    text-shadow: var(--sb-glow-red);
-    border-bottom: 3px solid var(--red-primary);
+  color: var(--sb-teamname-red);
+  text-shadow: var(--sb-glow-red);
+  border-bottom: 3px solid var(--red-primary);
 }
 
 /* --- TEAM NAME --- */
 .teamname {
-    width: 290px;
-    height: 54.5px;
-    background: var(--sb-bg-teamname); /* Configurable TeamName BG */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    text-align: center;
+  width: 290px;
+  height: 54.5px;
+  background: var(--sb-bg-teamname); /* Configurable TeamName BG */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  text-align: center;
 }
 
 .teamname.blue {
-    border-bottom: 3px solid var(--sb-border-bottom);
-    color: var(--sb-teamname-blue); /* Configurable Text Blue */
-    text-shadow: var(--sb-glow-blue);
-    border-bottom: 3px solid var(--blue-primary);
+  border-bottom: 3px solid var(--sb-border-bottom);
+  color: var(--sb-teamname-blue); /* Configurable Text Blue */
+  text-shadow: var(--sb-glow-blue);
+  border-bottom: 3px solid var(--blue-primary);
 }
 
 .teamname.red {
-    border-bottom: 3px solid var(--sb-border-bottom);
-    color: var(--sb-teamname-red); /* Configurable Text Red */
-    text-shadow: var(--sb-glow-red);
-    border-bottom: 3px solid var(--red-primary);
+  border-bottom: 3px solid var(--sb-border-bottom);
+  color: var(--sb-teamname-red); /* Configurable Text Red */
+  text-shadow: var(--sb-glow-red);
+  border-bottom: 3px solid var(--red-primary);
 }
 
 /* --- TEAM LOGO --- */
 .teamlogo {
-    width: 80px;
-    height: 69.39px;
-    background: var(--sb-bg-logo); /* Configurable Logo BG */
-    margin-top: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 80px;
+  height: 69.39px;
+  background: var(--sb-bg-logo); /* Configurable Logo BG */
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .teamlogo.blue {
-    box-shadow: var(--sb-box-shadow-blue);
+  box-shadow: var(--sb-box-shadow-blue);
 }
 
 .teamlogo.red {
-    box-shadow: var(--sb-box-shadow-red);
+  box-shadow: var(--sb-box-shadow-red);
 }
 
 .teamlogo img {
-    width: 50px;
-    height: 65px;
-    object-fit: contain;
+  width: 50px;
+  height: 65px;
+  object-fit: contain;
 }
 
-.space { width: 90px; }
+.space {
+  width: 90px;
+}
 
 /* --- SECONDARY BOARD --- */
 .secondaryboard {
-    width: 440px;
-    height: 116.31px;
-    background: var(--sb-bg-secondary); /* Configurable Secondary BG */
-
+  width: 440px;
+  height: 116.31px;
+  background: var(--sb-bg-secondary);
+  border-left: 1px solid var(--sb-border-bottom);
+  border-top: 1px solid var(--sb-border-bottom);
+  box-shadow:
+    inset 4px 0 20px rgba(0, 238, 255, 0.1),
+    inset 0 -3px 12px rgba(0, 238, 255, 0.07);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.revblue { transform: skewX(-20deg); }
-.revred { transform: skewX(20deg); }
+/* Garis gradien biru di atas secondary board */
+.secondaryboard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue-primary), transparent);
+}
+
+/* Garis gradien biru di bawah secondary board */
+.secondaryboard::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 238, 255, 0.4), transparent);
+}
+
+/* ═══════════════════════════════════════
+   EVENT INFO (CIS 2026 TEXT)
+═══════════════════════════════════════ */
+.sb-event-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  z-index: 1;
+  text-align: center;
+  padding: 0 12px;
+}
+
+/* Badge kecil di atas */
+.sb-event-badge {
+  font-size: 7.5px;
+  letter-spacing: 2.5px;
+  color: rgba(0, 238, 255, 0.7);
+  text-transform: uppercase;
+  font-family: "myfonts", sans-serif;
+  border: 1px solid rgba(0, 238, 255, 0.3);
+  padding: 1px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* Judul besar CIS 2026 */
+.sb-event-title {
+  font-size: 32px;
+  letter-spacing: 4px;
+  font-family: "myfonts", sans-serif;
+  color: #ffffff;
+  text-shadow:
+    0 0 20px var(--blue-primary),
+    0 0 45px rgba(0, 238, 255, 0.5);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Angka tahun biru cerah */
+.sb-year {
+  color: var(--blue-primary);
+  text-shadow:
+    0 0 18px var(--blue-primary),
+    0 0 40px rgba(0, 238, 255, 0.6);
+}
+
+/* Sub-teks kecil di bawah */
+.sb-event-sub {
+  font-size: 7px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  font-family: "myfonts", sans-serif;
+  white-space: nowrap;
+}
+
+.revblue {
+  transform: skewX(-20deg);
+}
+.revred {
+  transform: skewX(20deg);
+}

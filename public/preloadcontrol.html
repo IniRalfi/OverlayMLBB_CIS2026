@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIS 2026 – Preload Control</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'BigNoodle';
+      src: url('Assets/Font/big_noodle_titling.ttf') format('truetype');
+    }
+
+    :root {
+      --bg-dark: #050d1a;
+      --bg-panel: rgba(6, 20, 45, 0.60);
+      --border-glass: rgba(0, 160, 255, 0.18);
+      --border-bright: rgba(0, 200, 255, 0.45);
+      --blue: #00c8ff;
+      --blue-glow: rgba(0, 200, 255, 0.45);
+      --green: #00ffa3;
+      --green-glow: rgba(0, 255, 163, 0.4);
+      --red: #F94868;
+      --red-glow: rgba(249, 72, 104, 0.4);
+      --gold: #ffd700;
+      --font-dim: rgba(255, 255, 255, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'BigNoodle', 'Inter', sans-serif;
+      color: #fff;
+      background: var(--bg-dark);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(0, 80, 200, 0.3), transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 80%, rgba(0, 180, 255, 0.2), transparent 60%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 20px 40px;
+      gap: 24px;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* Blob BG */
+    .blobs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      opacity: 0.22;
+      animation: bfloat 22s ease-in-out infinite alternate;
+    }
+
+    .blob:nth-child(1) {
+      width: 500px;
+      height: 500px;
+      top: -8%;
+      left: 5%;
+      background: radial-gradient(circle, #00aaff, #0044cc);
+      animation-duration: 18s;
+    }
+
+    .blob:nth-child(2) {
+      width: 600px;
+      height: 600px;
+      bottom: -10%;
+      right: 0%;
+      background: radial-gradient(circle, var(--blue), #003080);
+      animation-delay: 3s;
+      animation-duration: 24s;
+    }
+
+    @keyframes bfloat {
+      from {
+        transform: translate(0, 0) scale(1);
+      }
+
+      to {
+        transform: translate(40px, -30px) scale(1.15);
+      }
+    }
+
+    /* ══ GLASS PANEL ══ */
+    .panel {
+      background: var(--bg-panel);
+      backdrop-filter: blur(22px) saturate(1.6);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(0, 200, 255, 0.06) inset, 0 8px 40px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      max-width: 900px;
+      z-index: 1;
+    }
+
+    .panel-header {
+      background: rgba(0, 0, 0, 0.35);
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border-glass);
+      font-family: 'BigNoodle', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue);
+      text-shadow: 0 0 14px var(--blue-glow);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .panel-header .dot {
+      width: 10px;
+      height: 10px;
+      background: var(--blue);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--blue);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .3;
+      }
+    }
+
+    .panel-body {
+      padding: 20px 24px;
+    }
+
+    /* ══ STATUS BAR ══ */
+    .status-bar {
+      max-width: 900px;
+      width: 100%;
+      z-index: 1;
+      background: var(--bg-panel);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-glass);
+      border-radius: 12px;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    #status-text {
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: var(--blue);
+      text-shadow: 0 0 12px var(--blue-glow);
+    }
+
+    .status-ok {
+      color: var(--green) !important;
+      text-shadow: 0 0 12px var(--green-glow) !important;
+    }
+
+    .status-err {
+      color: var(--red) !important;
+      text-shadow: 0 0 12px var(--red-glow) !important;
+    }
+
+    /* ══ GRID LAYOUT ══ */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    /* ══ FORM ELEMENTS ══ */
+    label {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      color: var(--font-dim);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      background: rgba(0, 10, 40, 0.6);
+      border: 1px solid var(--border-glass);
+      border-radius: 8px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      padding: 10px 14px;
+      outline: none;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 12px var(--blue-glow);
+    }
+
+    select option {
+      background: #050d1a;
+    }
+
+    .field {
+      margin-bottom: 0;
+    }
+
+    /* ══ COUNTDOWN CONTROLS ══ */
+    .countdown-display {
+      text-align: center;
+      font-family: 'BigNoodle', sans-serif;
+      font-size: 4rem;
+      letter-spacing: 6px;
+      color: #fff;
+      text-shadow: 0 0 24px var(--blue);
+      padding: 12px;
+      background: rgba(0, 12, 45, 0.7);
+      border: 1px solid var(--border-glass);
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+
+    .timer-inputs {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .timer-sep {
+      font-size: 2rem;
+      text-align: center;
+      color: var(--font-dim);
+    }
+
+    /* ══ BUTTONS ══ */
+    .btn {
+      width: 100%;
+      padding: 13px 10px;
+      font-family: 'BigNoodle', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      border: 1.5px solid var(--border-glass);
+      border-radius: 10px;
+      background: rgba(0, 140, 255, 0.07);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 200, 255, 0.07), transparent 70%);
+      pointer-events: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--blue);
+      background: rgba(0, 180, 255, 0.15);
+      box-shadow: 0 0 18px var(--blue-glow), 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-green {
+      border-color: rgba(0, 255, 163, 0.35);
+      color: #b0fff0;
+    }
+
+    .btn-green:hover {
+      border-color: var(--green);
+      background: rgba(0, 255, 163, 0.12);
+      box-shadow: 0 0 18px var(--green-glow);
+      color: #fff;
+    }
+
+    .btn-red {
+      border-color: rgba(249, 72, 104, 0.35);
+      color: #ffb3c0;
+    }
+
+    .btn-red:hover {
+      border-color: var(--red);
+      background: rgba(249, 72, 104, 0.12);
+      box-shadow: 0 0 18px var(--red-glow);
+      color: #fff;
+    }
+
+    .btn-gold {
+      border-color: rgba(255, 215, 0, 0.35);
+      color: var(--gold);
+    }
+
+    .btn-gold:hover {
+      border-color: var(--gold);
+      background: rgba(255, 215, 0, 0.1);
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.35);
+      color: #fff;
+    }
+
+    .btn-big {
+      font-size: 1.8rem;
+      padding: 18px;
+    }
+
+    /* ══ SEPARATOR ══ */
+    .sep {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+      margin: 18px 0;
+    }
+
+    /* ══ LOGO UPLOAD PREVIEW ══ */
+    .logo-preview {
+      width: 80px;
+      height: 80px;
+      border: 2px dashed var(--border-glass);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 10, 40, 0.5);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .logo-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .logo-upload-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .logo-upload-col {
+      flex: 1;
+    }
+
+    /* ══ SECTION LABEL ══ */
+    .section-title {
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      color: var(--font-dim);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-glass);
+    }
+
+    /* Preload link */
+    .link-box {
+      background: rgba(0, 12, 45, 0.7);
+      border: 1px solid var(--border-glass);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-family: 'Inter', monospace;
+      font-size: 0.85rem;
+      color: var(--blue);
+      word-break: break-all;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .link-box:hover {
+      border-color: var(--blue);
+      background: rgba(0, 30, 80, 0.5);
+    }
+
+    .app-logo {
+      z-index: 1;
+      opacity: 0.6;
+    }
+
+    .app-logo img {
+      max-width: 200px;
+    }
+
+    /* ══ TEAM PANEL ══ */
+    .team-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .team-header-label {
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-align: center;
+      font-family: 'BigNoodle', sans-serif;
+    }
+
+    .blue-label {
+      background: rgba(0, 100, 200, 0.25);
+      border: 1px solid rgba(0, 180, 255, 0.4);
+      color: #7ecfff;
+    }
+
+    .red-label {
+      background: rgba(180, 0, 40, 0.25);
+      border: 1px solid rgba(249, 72, 104, 0.4);
+      color: #ffb3c0;
+    }
+
+    /* Logo upload area */
+    .logo-drop {
+      width: 100%;
+      height: 120px;
+      border: 2px dashed var(--border-glass);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 12px;
+      background: rgba(0, 10, 40, 0.4);
+      cursor: pointer;
+      transition: border 0.2s, background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-drop:hover {
+      border-color: var(--blue);
+      background: rgba(0, 30, 80, 0.4);
+    }
+
+    .logo-drop input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .logo-thumb {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-glass);
+      flex-shrink: 0;
+    }
+
+    .logo-drop-text {
+      font-size: 0.8rem;
+      color: var(--font-dim);
+      letter-spacing: 1px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .score-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .score-dash {
+      font-size: 1.5rem;
+      color: var(--font-dim);
+      text-align: center;
+    }
+
+    .score-input {
+      font-family: 'BigNoodle', sans-serif !important;
+      font-size: 2rem !important;
+      text-align: center;
+      letter-spacing: 4px;
+      padding: 8px !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BG Blobs -->
+  <div class="blobs">
+    <div class="blob"></div>
+    <div class="blob"></div>
+  </div>
+
+  <!-- ══ STATUS BAR ══ -->
+  <div class="status-bar">
+    <div>
+      <div style="font-size:0.7rem;letter-spacing:3px;color:var(--font-dim);margin-bottom:4px;">PRELOAD CONTROL</div>
+      <div id="status-text">STANDBY</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:0.7rem;letter-spacing:2px;color:var(--font-dim);margin-bottom:4px;">COUNTDOWN</div>
+      <div id="live-countdown" style="font-size:1.6rem;letter-spacing:3px;color:#fff;">--:--</div>
+    </div>
+  </div>
+
+  <!-- ══ PANEL 1: COUNTDOWN ══ -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="dot"></div>
+      ⏱ Countdown Timer
+    </div>
+    <div class="panel-body">
+
+      <div class="countdown-display" id="preview-countdown">10:00</div>
+
+      <div class="timer-inputs">
+        <div class="field">
+          <label>Menit</label>
+          <input type="number" id="input-minutes" value="10" min="0" max="99" oninput="previewCountdown()">
+        </div>
+        <div class="timer-sep">:</div>
+        <div class="field">
+          <label>Detik</label>
+          <input type="number" id="input-seconds" value="0" min="0" max="59" oninput="previewCountdown()">
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <button class="btn btn-green btn-big" onclick="startCountdown()">▶ MULAI</button>
+        <button class="btn btn-red btn-big" onclick="pauseCountdown()">⏸ PAUSE</button>
+        <button class="btn btn-big" onclick="resetCountdown()">↺ RESET</button>
+      </div>
+
+      <div class="sep"></div>
+
+      <div class="section-title">Set Cepat</div>
+      <div class="grid-4">
+        <button class="btn" onclick="setQuick(3,0)">3 Menit</button>
+        <button class="btn" onclick="setQuick(5,0)">5 Menit</button>
+        <button class="btn" onclick="setQuick(10,0)">10 Menit</button>
+        <button class="btn" onclick="setQuick(15,0)">15 Menit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PANEL 2: MATCH INFO ══ -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="dot"></div>
+      📋 Info Pertandingan
+    </div>
+    <div class="panel-body">
+      <div class="grid-2">
+        <div>
+          <div class="section-title">Match Info (tengah)</div>
+          <div class="field" style="margin-bottom:12px;">
+            <label>Teks Info</label>
+            <input type="text" id="input-matchinfo" value="BEST OF 3" placeholder="Contoh: BEST OF 3">
+          </div>
+          <div class="section-title">Quick Set</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <button class="btn" onclick="setMatchInfo('BEST OF 1')">BO1</button>
+            <button class="btn" onclick="setMatchInfo('BEST OF 3')">BO3</button>
+            <button class="btn" onclick="setMatchInfo('BEST OF 5')">BO5</button>
+            <button class="btn" onclick="setMatchInfo('GRAND FINAL')">Grand Final</button>
+            <button class="btn" onclick="setMatchInfo('GROUP STAGE')">Group Stage</button>
+            <button class="btn" onclick="setMatchInfo('SEMIFINAL')">Semifinal</button>
+          </div>
+        </div>
+        <div>
+          <div class="section-title">Match Type (pojok kanan)</div>
+          <div class="field" style="margin-bottom:12px;">
+            <label>Teks Match Type</label>
+            <input type="text" id="input-matchtype" value="MOBILE LEGENDS" placeholder="Contoh: MOBILE LEGENDS">
+          </div>
+          <div class="sep" style="margin:10px 0;"></div>
+          <div class="section-title">Custom Ticker</div>
+          <div class="field">
+            <label>Teks Ticker Bawah (kosongkan = default)</label>
+            <input type="text" id="input-ticker" value="" placeholder="Teks custom untuk ticker...">
+          </div>
+        </div>
+      </div>
+
+      <div class="sep"></div>
+      <button class="btn btn-gold" onclick="applyMatchInfo()">💾 TERAPKAN INFO PERTANDINGAN</button>
+    </div>
+  </div>
+
+  <!-- ══ PANEL 3: TIM & LOGO ══ -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="dot"></div>
+      🏆 Tim & Skor & Logo
+    </div>
+    <div class="panel-body">
+
+      <!-- Skor baris tengah -->
+      <div class="section-title">Skor Pertandingan</div>
+      <div class="score-row" style="margin-bottom:18px;">
+        <div>
+          <label style="color:#7ecfff;">Skor TIM BIRU</label>
+          <input type="number" id="score-blue" class="score-input" value="0" min="0" max="99"
+            style="border-color:rgba(0,180,255,0.4);">
+        </div>
+        <div class="score-dash">—</div>
+        <div>
+          <label style="color:#ffb3c0;">Skor TIM MERAH</label>
+          <input type="number" id="score-red" class="score-input" value="0" min="0" max="99"
+            style="border-color:rgba(249,72,104,0.4);">
+        </div>
+      </div>
+
+      <!-- Tim kiri & kanan -->
+      <div class="grid-2">
+
+        <!-- BLUE TEAM -->
+        <div class="team-col">
+          <div class="team-header-label blue-label">🔵 TIM BIRU</div>
+          <div class="field">
+            <label>Nama Tim</label>
+            <input type="text" id="name-blue" placeholder="Nama tim biru..." style="border-color:rgba(0,180,255,0.3);">
+          </div>
+          <div>
+            <label>Logo Tim</label>
+            <div class="logo-drop" id="drop-blue">
+              <input type="file" accept="image/*" onchange="handleLogo(event,'blue')">
+              <img class="logo-thumb" id="thumb-blue" src="" style="display:none;">
+              <div class="logo-drop-text" id="drop-text-blue">
+                📂 Klik atau drag<br>gambar logo di sini
+              </div>
+            </div>
+          </div>
+          <button class="btn" style="border-color:rgba(0,180,255,0.4);color:#7ecfff" onclick="clearLogo('blue')">✕ Hapus
+            Logo</button>
+        </div>
+
+        <!-- RED TEAM -->
+        <div class="team-col">
+          <div class="team-header-label red-label">🔴 TIM MERAH</div>
+          <div class="field">
+            <label>Nama Tim</label>
+            <input type="text" id="name-red" placeholder="Nama tim merah..." style="border-color:rgba(249,72,104,0.3);">
+          </div>
+          <div>
+            <label>Logo Tim</label>
+            <div class="logo-drop" id="drop-red">
+              <input type="file" accept="image/*" onchange="handleLogo(event,'red')">
+              <img class="logo-thumb" id="thumb-red" src="" style="display:none;">
+              <div class="logo-drop-text" id="drop-text-red">
+                📂 Klik atau drag<br>gambar logo di sini
+              </div>
+            </div>
+          </div>
+          <button class="btn" style="border-color:rgba(249,72,104,0.4);color:#ffb3c0" onclick="clearLogo('red')">✕ Hapus
+            Logo</button>
+        </div>
+
+      </div>
+
+      <div class="sep"></div>
+      <button class="btn btn-gold btn-big" onclick="applyTeamData()">💾 TERAPKAN DATA TIM KE SEMUA OVERLAY</button>
+    </div>
+  </div>
+
+  <!-- ══ PANEL 4: KIRIM SEMUA ══ -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="dot"></div>
+      🚀 Kirim ke Display
+    </div>
+    <div class="panel-body">
+      <div class="grid-2">
+        <button class="btn btn-green btn-big" onclick="sendAll()" style="font-size:2rem;padding:22px;">
+          📡 SYNC KE PRELOAD
+        </button>
+        <div>
+          <div class="section-title">Link Preload</div>
+          <div class="link-box" onclick="copyLink(this)" id="preload-link">
+            http://localhost:3000/preload.html
+          </div>
+          <div style="font-size:0.75rem;color:var(--font-dim);margin-top:8px;letter-spacing:1px;">
+            ↑ Klik untuk copy URL
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-logo">
+    <img src="Assets/Other/OVERLAYTOOLLOGO.png" alt="">
+  </div>
+
+  <script>
+    /* ══════════════════════
+       STATE
+    ══════════════════════ */
+    let countdownInterval = null;
+    let remainingSeconds = 10 * 60;
+    let isPaused = false;
+
+    /* ══════════════════════
+       COUNTDOWN PREVIEW
+    ══════════════════════ */
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function previewCountdown() {
+      const m = parseInt(document.getElementById('input-minutes').value) || 0;
+      const s = parseInt(document.getElementById('input-seconds').value) || 0;
+      document.getElementById('preview-countdown').textContent = `${pad(m)}:${pad(s)}`;
+    }
+
+    function setQuick(m, s) {
+      document.getElementById('input-minutes').value = m;
+      document.getElementById('input-seconds').value = s;
+      previewCountdown();
+    }
+
+    /* ══════════════════════
+       COUNTDOWN ACTIONS
+    ══════════════════════ */
+    function startCountdown() {
+      const m = parseInt(document.getElementById('input-minutes').value) || 0;
+      const s = parseInt(document.getElementById('input-seconds').value) || 0;
+      remainingSeconds = m * 60 + s;
+      isPaused = false;
+
+      // Target timestamp = now + remaining seconds
+      const target = Date.now() + remainingSeconds * 1000;
+      sendPreload({ countdownTarget: target, paused: false });
+      runLocalCountdown(target);
+      setStatus('▶ COUNTDOWN STARTED', 'ok');
+    }
+
+    function pauseCountdown() {
+      isPaused = !isPaused;
+      clearInterval(countdownInterval);
+      if (isPaused) {
+        // Kirim sisa detik + paused flag
+        sendPreload({ countdownTarget: null, countdownRemaining: remainingSeconds, paused: true });
+        setStatus('⏸ PAUSED', '');
+      } else {
+        // Resume: hitung ulang target dari sisa
+        const target = Date.now() + remainingSeconds * 1000;
+        sendPreload({ countdownTarget: target, paused: false });
+        runLocalCountdown(target);
+        setStatus('▶ RESUMED', 'ok');
+      }
+    }
+
+    function resetCountdown() {
+      clearInterval(countdownInterval);
+      isPaused = false;
+      const m = parseInt(document.getElementById('input-minutes').value) || 0;
+      const s = parseInt(document.getElementById('input-seconds').value) || 0;
+      remainingSeconds = m * 60 + s;
+      sendPreload({ countdownTarget: null, countdownRemaining: remainingSeconds, paused: true });
+      document.getElementById('live-countdown').textContent = `${pad(m)}:${pad(s)}`;
+      setStatus('↺ RESET', '');
+    }
+
+    function runLocalCountdown(target) {
+      clearInterval(countdownInterval);
+      countdownInterval = setInterval(() => {
+        const left = Math.max(0, Math.round((target - Date.now()) / 1000));
+        remainingSeconds = left;
+        const m = Math.floor(left / 60);
+        const s = left % 60;
+        document.getElementById('live-countdown').textContent = `${pad(m)}:${pad(s)}`;
+        if (left <= 0) {
+          clearInterval(countdownInterval);
+          document.getElementById('live-countdown').textContent = 'MULAI!';
+          setStatus('✅ WAKTU HABIS', 'ok');
+        }
+      }, 500);
+    }
+
+    /* ══════════════════════
+       MATCH INFO
+    ══════════════════════ */
+    function setMatchInfo(val) {
+      document.getElementById('input-matchinfo').value = val;
+    }
+
+    function applyMatchInfo() {
+      sendPreload({
+        matchInfo: document.getElementById('input-matchinfo').value,
+        matchType: document.getElementById('input-matchtype').value,
+        ticker: document.getElementById('input-ticker').value,
+      });
+      setStatus('💾 INFO TERSIMPAN', 'ok');
+    }
+
+    /* ══════════════════════
+       KIRIM SEMUA
+    ══════════════════════ */
+    function sendAll() {
+      const m = parseInt(document.getElementById('input-minutes').value) || 0;
+      const s = parseInt(document.getElementById('input-seconds').value) || 0;
+      const payload = {
+        matchInfo: document.getElementById('input-matchinfo').value,
+        matchType: document.getElementById('input-matchtype').value,
+        ticker: document.getElementById('input-ticker').value,
+      };
+      // Kirim match info dulu
+      sendPreload(payload);
+      setStatus('📡 SYNC TERKIRIM', 'ok');
+    }
+
+    /* ══════════════════════
+       API
+    ══════════════════════ */
+    async function sendPreload(data) {
+      try {
+        const res = await fetch('/api/preload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) setStatus('❌ ERROR SERVER', 'err');
+      } catch (e) {
+        setStatus('❌ KONEKSI ERROR', 'err');
+        console.error(e);
+      }
+    }
+
+    /* ══════════════════════
+       STATUS
+    ══════════════════════ */
+    function setStatus(msg, type) {
+      const el = document.getElementById('status-text');
+      el.textContent = msg;
+      el.className = type === 'ok' ? 'status-ok' : type === 'err' ? 'status-err' : '';
+      if (type === 'ok') {
+        setTimeout(() => { el.textContent = 'STANDBY'; el.className = ''; }, 2500);
+      }
+    }
+
+    /* ══════════════════════
+       COPY LINK
+    ══════════════════════ */
+    function copyLink(el) {
+      const text = el.textContent.trim();
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          el.textContent = '✅ COPIED!';
+          setTimeout(() => { el.textContent = text; }, 1500);
+        });
+      }
+    }
+
+    /* ══════════════════════
+       LOGO HANDLER (base64)
+    ══════════════════════ */
+    const logoData = { blue: '', red: '' };
+
+    function handleLogo(event, side) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        logoData[side] = e.target.result; // base64 string
+        const thumb = document.getElementById(`thumb-${side}`);
+        const dropText = document.getElementById(`drop-text-${side}`);
+        thumb.src = e.target.result;
+        thumb.style.display = 'block';
+        dropText.style.display = 'none';
+        setStatus(`✅ LOGO ${side.toUpperCase()} DIMUAT`, 'ok');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function clearLogo(side) {
+      logoData[side] = '';
+      const thumb = document.getElementById(`thumb-${side}`);
+      const dropText = document.getElementById(`drop-text-${side}`);
+      thumb.src = '';
+      thumb.style.display = 'none';
+      dropText.style.display = 'block';
+      // Reset file input
+      const drop = document.getElementById(`drop-${side}`);
+      const input = drop.querySelector('input[type="file"]');
+      if (input) input.value = '';
+    }
+
+    /* ══════════════════════
+       APPLY TEAM DATA ke /api/matchdata
+    ══════════════════════ */
+    async function applyTeamData() {
+      setStatus('📤 MENGIRIM...', '');
+      try {
+        // Ambil matchdata saat ini dulu agar tidak overwrite data lain
+        const getRes = await fetch('/api/matchdata');
+        const current = await getRes.json();
+
+        // Patch hanya field yang diisi
+        const nameBlue = document.getElementById('name-blue').value.trim();
+        const nameRed = document.getElementById('name-red').value.trim();
+        const scoreBlue = document.getElementById('score-blue').value;
+        const scoreRed = document.getElementById('score-red').value;
+
+        if (nameBlue) current.teamdata.blueteam.teamname = nameBlue;
+        if (nameRed) current.teamdata.redteam.teamname = nameRed;
+        if (scoreBlue !== '') current.teamdata.blueteam.score = scoreBlue;
+        if (scoreRed !== '') current.teamdata.redteam.score = scoreRed;
+        if (logoData.blue) current.teamdata.blueteam.logo = logoData.blue;
+        if (logoData.red) current.teamdata.redteam.logo = logoData.red;
+
+        // Kirim ke server
+        const res = await fetch('/api/matchdata', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(current)
+        });
+
+        if (res.ok) {
+          setStatus('✅ DATA TIM TERSIMPAN', 'ok');
+        } else {
+          setStatus('❌ GAGAL SIMPAN', 'err');
+        }
+      } catch (e) {
+        setStatus('❌ KONEKSI ERROR', 'err');
+        console.error(e);
+      }
+    }
+
+    /* ══════════════════════
+       INIT — load state server
+    ══════════════════════ */
+    async function loadInitialState() {
+      try {
+        // Load preload state
+        const res = await fetch('/api/preload');
+        const d = await res.json();
+        if (d.matchInfo) document.getElementById('input-matchinfo').value = d.matchInfo;
+        if (d.matchType) document.getElementById('input-matchtype').value = d.matchType;
+        if (d.ticker) document.getElementById('input-ticker').value = d.ticker;
+
+        // Restore countdown display
+        if (d.countdownTarget && !d.paused) {
+          runLocalCountdown(d.countdownTarget);
+        } else if (d.countdownRemaining !== undefined) {
+          const m = Math.floor(d.countdownRemaining / 60);
+          const s = d.countdownRemaining % 60;
+          document.getElementById('live-countdown').textContent = `${pad(m)}:${pad(s)}`;
+        }
+
+        // Load matchdata saat ini untuk restore nama & skor
+        const mRes = await fetch('/api/matchdata');
+        const md = await mRes.json();
+        if (md.teamdata) {
+          document.getElementById('name-blue').value = md.teamdata.blueteam?.teamname || '';
+          document.getElementById('name-red').value = md.teamdata.redteam?.teamname || '';
+          document.getElementById('score-blue').value = md.teamdata.blueteam?.score || '0';
+          document.getElementById('score-red').value = md.teamdata.redteam?.score || '0';
+
+          // Tampilkan logo kalau sudah ada
+          if (md.teamdata.blueteam?.logo) {
+            logoData.blue = md.teamdata.blueteam.logo;
+            const t = document.getElementById('thumb-blue');
+            t.src = md.teamdata.blueteam.logo;
+            t.style.display = 'block';
+            document.getElementById('drop-text-blue').style.display = 'none';
+          }
+          if (md.teamdata.redteam?.logo) {
+            logoData.red = md.teamdata.redteam.logo;
+            const t = document.getElementById('thumb-red');
+            t.src = md.teamdata.redteam.logo;
+            t.style.display = 'block';
+            document.getElementById('drop-text-red').style.display = 'none';
+          }
+        }
+      } catch (e) { console.log('Init error:', e); }
+    }
+
+    loadInitialState();
+
+    // Update link dengan IP server jika ada
+    (async () => {
+      try {
+        const res = await fetch('/serverip.txt', { cache: 'no-store' });
+        const ip = (await res.text()).trim();
+        if (ip) {
+          document.getElementById('preload-link').textContent = `http://${ip}:3000/preload.html`;
+        }
+      } catch (e) { }
+    })();
+  </script>
+
+</body>
+
+</html>

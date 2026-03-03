@@ -1,0 +1,494 @@
+@font-face {
+  font-family: "BigNoodle";
+  src: url("Assets/Font/big_noodle_titling.ttf") format("truetype");
+}
+
+/* ── CIS 2026 TOKENS ── */
+:root {
+  --blue: #00c8ff;
+  --blue-deep: #003080;
+  --glow: rgba(0, 200, 255, 0.45);
+  --panel: rgba(0, 14, 50, 0.88);
+  --border: rgba(0, 200, 255, 0.55);
+  --gold: #ffd700;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "BigNoodle", sans-serif;
+  background: #000614;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+}
+
+/* ══════════════════════════════════
+           BACKGROUND — grid + radial glow
+        ══════════════════════════════════ */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 200, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 200, 255, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+}
+
+.bg-glow-left {
+  position: absolute;
+  left: -200px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(0, 80, 200, 0.35), transparent 70%);
+  z-index: 0;
+}
+
+.bg-glow-right {
+  position: absolute;
+  right: -200px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(0, 80, 200, 0.35), transparent 70%);
+  z-index: 0;
+}
+
+/* ══════════════════════════════════
+           TOP HEADER BAR
+        ══════════════════════════════════ */
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(180deg, rgba(0, 10, 40, 0.98) 0%, rgba(0, 14, 50, 0.9) 100%);
+  border-bottom: 2px solid var(--border);
+  box-shadow: 0 4px 30px var(--glow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  z-index: 10;
+}
+
+.top-bar::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue), #fff, var(--blue), transparent);
+  animation: scanline 3s ease-in-out infinite;
+}
+
+@keyframes scanline {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* CIS Logo area */
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cis-logo-box {
+  width: 70px;
+  height: 70px;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 30, 80, 0.6);
+  box-shadow: 0 0 18px var(--glow);
+}
+
+.cis-logo-box img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.header-title-group {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.header-cis {
+  font-size: 14px;
+  color: var(--blue);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.header-main-title {
+  font-size: 42px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px var(--blue);
+  line-height: 1;
+}
+
+/* PRELOAD badge */
+.preload-badge {
+  background: linear-gradient(135deg, var(--blue-deep), #0060c0);
+  border: 1px solid var(--border);
+  padding: 6px 20px;
+  font-size: 18px;
+  letter-spacing: 6px;
+  color: #fff;
+  text-transform: uppercase;
+  box-shadow: 0 0 16px var(--glow);
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+}
+
+/* Match type label */
+.match-label {
+  text-align: right;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 3px;
+}
+
+.match-type-text {
+  font-size: 28px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-shadow: 0 0 14px rgba(255, 215, 0, 0.6);
+}
+
+/* ══════════════════════════════════
+           MAIN CONTENT — layout 3 kolom
+        ══════════════════════════════════ */
+.main {
+  position: absolute;
+  top: 90px;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  z-index: 5;
+}
+
+/* ── Panel Tim (kiri dan kanan) ── */
+.team-panel {
+  width: 540px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 30px 40px;
+  position: relative;
+}
+
+.team-panel.blue-panel {
+  background: linear-gradient(135deg, rgba(0, 30, 100, 0.6) 0%, rgba(0, 14, 50, 0.4) 100%);
+  border-right: 1px solid rgba(0, 200, 255, 0.15);
+}
+
+.team-panel.red-panel {
+  background: linear-gradient(225deg, rgba(100, 10, 10, 0.6) 0%, rgba(0, 14, 50, 0.4) 100%);
+  border-left: 1px solid rgba(255, 60, 90, 0.2);
+}
+
+/* Team logo */
+.team-logo {
+  width: 160px;
+  height: 160px;
+  border: 2px solid var(--border);
+  box-shadow:
+    0 0 30px var(--glow),
+    inset 0 0 20px rgba(0, 200, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 10, 40, 0.7);
+  position: relative;
+}
+
+.team-logo::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(0, 200, 255, 0.2);
+}
+
+.team-logo img {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+}
+
+/* Team name */
+.team-name {
+  font-size: 54px;
+  letter-spacing: 3px;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 24px var(--blue);
+  line-height: 1.1;
+  max-width: 420px;
+}
+
+.red-panel .team-name {
+  text-shadow: 0 0 24px #ff4060;
+}
+
+/* Score display */
+.team-score-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 4px;
+}
+
+.team-score {
+  font-size: 80px;
+  line-height: 1;
+  color: #fff;
+  text-shadow:
+    0 0 30px var(--blue),
+    0 0 8px #fff;
+}
+
+.red-panel .team-score {
+  text-shadow:
+    0 0 30px #ff4060,
+    0 0 8px #fff;
+}
+
+/* ── CENTER PANEL ── */
+.center-panel {
+  width: 360px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px 0;
+  position: relative;
+}
+
+/* VS Divider */
+.vs-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.vs-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, transparent, var(--blue), transparent);
+}
+
+.vs-text {
+  font-size: 30px;
+  color: var(--blue);
+  letter-spacing: 6px;
+  text-shadow: 0 0 16px var(--blue);
+}
+
+/* Countdown */
+.countdown-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.countdown-box {
+  background: linear-gradient(180deg, rgba(0, 12, 45, 0.95) 0%, rgba(0, 5, 25, 0.98) 100%);
+  border: 2px solid var(--border);
+  box-shadow:
+    0 0 30px var(--glow),
+    inset 0 0 20px rgba(0, 200, 255, 0.06);
+  padding: 12px 20px;
+  text-align: center;
+  position: relative;
+  width: 280px;
+}
+
+.countdown-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+}
+
+.countdown-time {
+  font-size: 72px;
+  letter-spacing: 4px;
+  color: #fff;
+  text-shadow:
+    0 0 30px var(--blue),
+    0 0 8px #fff;
+  line-height: 1;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 30px var(--blue),
+      0 0 8px #fff;
+  }
+
+  50% {
+    text-shadow:
+      0 0 50px var(--blue),
+      0 0 16px #fff,
+      0 0 3px var(--blue);
+  }
+}
+
+/* Match info chip */
+.match-info {
+  background: rgba(0, 30, 80, 0.6);
+  border: 1px solid rgba(0, 200, 255, 0.25);
+  padding: 8px 16px;
+  font-size: 15px;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+  width: 280px;
+}
+
+/* ══════════════════════════════════
+           BOTTOM TICKER
+        ══════════════════════════════════ */
+.bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(0deg, rgba(0, 10, 40, 0.98) 0%, rgba(0, 14, 50, 0.9) 100%);
+  border-top: 2px solid var(--border);
+  box-shadow: 0 -4px 20px var(--glow);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.ticker-track {
+  display: flex;
+  animation: ticker-scroll 30s linear infinite;
+  white-space: nowrap;
+  gap: 100px;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(1920px);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.ticker-item {
+  font-size: 22px;
+  letter-spacing: 4px;
+  color: var(--blue);
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.ticker-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--blue);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--blue);
+}
+
+/* ══════════════════════════════════
+           DECORATIVE CORNER LINES
+        ══════════════════════════════════ */
+.corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  z-index: 20;
+}
+
+.corner::before,
+.corner::after {
+  content: "";
+  position: absolute;
+  background: var(--blue);
+  box-shadow: 0 0 8px var(--blue);
+}
+
+.corner::before {
+  width: 100%;
+  height: 2px;
+  top: 0;
+}
+
+.corner::after {
+  width: 2px;
+  height: 100%;
+  left: 0;
+}
+
+.corner-tl {
+  top: 91px;
+  left: 0;
+}
+
+.corner-tr {
+  top: 91px;
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.corner-bl {
+  bottom: 80px;
+  left: 0;
+  transform: scaleY(-1);
+}
+
+.corner-br {
+  bottom: 80px;
+  right: 0;
+  transform: scale(-1);
+}

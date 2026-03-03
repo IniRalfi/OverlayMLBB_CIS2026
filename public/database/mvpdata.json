@@ -1,15 +1,15 @@
 {
   "mvp": {
-    "checkboxId": "mvp-blueteam-0",
+    "checkboxId": "mvp-blueteam-1",
     "side": "blue",
-    "nickname": "",
-    "heroImg": "Assets/HeroPick/Jawhead.png",
+    "nickname": "Nabil",
+    "heroImg": "Assets/HeroPick/idle.png",
     "playerPhoto": "Assets/player/playertemp.png",
     "stats": {
       "LVL": 0,
       "KDA": "0/0/0",
       "GOLD": 0,
-      "SPELL": "Inspire",
+      "SPELL": "Enchanted Talisman",
       "ITEM 1": "idle",
       "ITEM 2": "idle",
       "ITEM 3": "idle",

@@ -566,6 +566,34 @@ app.post("/api/notification", async (req, res) => {
   }
 });
 
+// --- PRELOAD CONTROL API ---
+const preloadDataPath = path.join(dbDir, "preloaddata.json");
+
+app.get("/api/preload", async (req, res) => {
+  try {
+    const data = await fs.readFile(preloadDataPath, "utf8");
+    res.json(JSON.parse(data));
+  } catch {
+    res.json({
+      countdownTarget: null,
+      matchInfo: "BEST OF 3",
+      matchType: "MOBILE LEGENDS",
+      ticker: "",
+      paused: false,
+    });
+  }
+});
+
+app.post("/api/preload", async (req, res) => {
+  try {
+    await fs.writeFile(preloadDataPath, JSON.stringify(req.body, null, 2));
+    broadcast({ type: "preload_update", data: req.body });
+    res.json({ message: "Preload data updated" });
+  } catch (error) {
+    res.status(500).json({ message: "Error saving preload data" });
+  }
+});
+
 // --- FITUR ARSIP MATCH ---
 app.post("/api/save-match-record", async (req, res) => {
   try {

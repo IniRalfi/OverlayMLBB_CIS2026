@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +30,9 @@
             --sidebar-width: 280px;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             background-color: var(--bg-dark);
@@ -45,15 +48,21 @@
         /* ================== BACKGROUND FX ================== */
         .ambient-bg {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -2;
             background: radial-gradient(circle at 15% 50%, rgba(76, 29, 149, 0.15), transparent 40%),
-                        radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.1), transparent 40%);
+                radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.1), transparent 40%);
         }
 
         .blob-container {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -1;
             overflow: hidden;
             pointer-events: none;
@@ -66,14 +75,47 @@
             opacity: 0.4;
             animation: float 20s infinite ease-in-out alternate;
         }
-        .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: var(--accent-primary); animation-duration: 25s; }
-        .blob-2 { bottom: -10%; right: -10%; width: 600px; height: 600px; background: #4c1d95; animation-duration: 30s; }
-        .blob-3 { top: 40%; left: 40%; width: 300px; height: 300px; background: #2563eb; opacity: 0.2; animation-duration: 22s; }
+
+        .blob-1 {
+            top: -10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: var(--accent-primary);
+            animation-duration: 25s;
+        }
+
+        .blob-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: #4c1d95;
+            animation-duration: 30s;
+        }
+
+        .blob-3 {
+            top: 40%;
+            left: 40%;
+            width: 300px;
+            height: 300px;
+            background: #2563eb;
+            opacity: 0.2;
+            animation-duration: 22s;
+        }
 
         @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(30px, -50px) scale(1.1); }
-            100% { transform: translate(-20px, 20px) scale(0.9); }
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            100% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
         }
 
         /* ================== SIDEBAR ================== */
@@ -89,11 +131,19 @@
             z-index: 10;
         }
 
-        .app-brand { margin-bottom: 30px; text-align: center; }
-        .app-brand img { max-width: 100%; height: auto; filter: drop-shadow(0 0 10px rgba(168,85,247,0.3)); }
+        .app-brand {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .app-brand img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.3));
+        }
 
         .status-panel {
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--glass-border);
             border-radius: 8px;
             padding: 12px;
@@ -112,7 +162,8 @@
         }
 
         .status-dot {
-            width: 8px; height: 8px;
+            width: 8px;
+            height: 8px;
             background: var(--success);
             border-radius: 50%;
             box-shadow: 0 0 8px var(--success);
@@ -127,7 +178,12 @@
             word-break: break-all;
         }
 
-        .nav-menu { display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+        }
 
         .nav-item {
             background: transparent;
@@ -145,7 +201,11 @@
             overflow: hidden;
         }
 
-        .nav-item:hover { color: var(--text-main); background: var(--glass-highlight); padding-left: 20px; }
+        .nav-item:hover {
+            color: var(--text-main);
+            background: var(--glass-highlight);
+            padding-left: 20px;
+        }
 
         .nav-item.active {
             background: rgba(168, 85, 247, 0.15);
@@ -155,8 +215,14 @@
         }
 
         .nav-item.active::before {
-            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-            background: var(--accent-primary); box-shadow: 0 0 10px var(--accent-primary);
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
         }
 
         .sidebar-footer {
@@ -183,57 +249,163 @@
             text-align: center;
             transition: transform 0.2s;
         }
-        .btn-visit:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--accent-glow); }
+
+        .btn-visit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--accent-glow);
+        }
 
         /* ================== MAIN CONTENT ================== */
-        .main-content { flex-grow: 1; padding: 40px; overflow-y: auto; position: relative; }
-        .page-header { margin-bottom: 30px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; }
-        
-        .page-title {
-            font-family: var(--font-display); font-size: 3rem; margin: 0; text-transform: uppercase;
-            letter-spacing: 2px;
-            background: -webkit-linear-gradient(#fff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            position: relative;
         }
 
-        .page-subtitle { color: var(--text-muted); font-size: 0.9rem; margin-top: 5px; }
+        .page-header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 15px;
+        }
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: -webkit-linear-gradient(#fff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
 
         /* ================== GRID & CARDS ================== */
-        .tab-pane { display: none; animation: fadeIn 0.4s ease; }
-        .tab-pane.active { display: block; }
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
 
         .tool-card {
-            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px;
-            overflow: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative; backdrop-filter: blur(10px);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
         }
-        .tool-card:hover { transform: translateY(-5px); border-color: var(--accent-primary); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5), 0 0 20px rgba(168,85,247,0.2); }
 
-        .card-preview { height: 140px; width: 100%; background: #111; position: relative; overflow: hidden; border-bottom: 1px solid var(--glass-border); }
-        .card-preview img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: opacity 0.3s; }
-        .tool-card:hover .card-preview img { opacity: 1; transform: scale(1.05); }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(168, 85, 247, 0.2);
+        }
 
-        .card-body { padding: 16px; }
-        .card-title { font-family: var(--font-display); font-size: 1.6rem; margin: 0 0 12px 0; color: var(--text-main); letter-spacing: 0.5px; }
-        .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .card-preview {
+            height: 140px;
+            width: 100%;
+            background: #111;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .card-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .tool-card:hover .card-preview img {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 16px;
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            margin: 0 0 12px 0;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
 
         .action-btn {
-            background: transparent; border: 1px solid var(--glass-border); color: var(--text-muted);
-            padding: 8px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; text-transform: uppercase;
-            font-weight: 700; transition: all 0.2s; font-family: var(--font-body);
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            padding: 8px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            transition: all 0.2s;
+            font-family: var(--font-body);
         }
-        .action-btn:hover { background: rgba(255,255,255,0.05); color: white; border-color: rgba(255,255,255,0.3); }
 
-        .btn-primary { grid-column: span 2; background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.3); color: var(--accent-primary); }
-        .btn-primary:hover { background: var(--accent-primary); color: white; box-shadow: 0 0 10px var(--accent-glow); }
-        .btn-copied { background: var(--success) !important; color: #000 !important; border-color: var(--success) !important; }
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary {
+            grid-column: span 2;
+            background: rgba(168, 85, 247, 0.15);
+            border-color: rgba(168, 85, 247, 0.3);
+            color: var(--accent-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-primary);
+            color: white;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .btn-copied {
+            background: var(--success) !important;
+            color: #000 !important;
+            border-color: var(--success) !important;
+        }
 
         /* ================== README STYLES (NEW) ================== */
-        .readme-wrapper { max-width: 1100px; margin: 0 auto; }
-        
+        .readme-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
         /* IP Info Box */
         .info-panel {
-            background: rgba(0,0,0,0.25);
+            background: rgba(0, 0, 0, 0.25);
             border-left: 4px solid var(--accent-primary);
             padding: 20px;
             border-radius: 0 8px 8px 0;
@@ -248,7 +420,7 @@
             gap: 40px;
             margin-bottom: 50px;
         }
-        
+
         .license-col h3 {
             font-family: var(--font-display);
             font-size: 1.8rem;
@@ -257,7 +429,7 @@
             border-bottom: 1px solid var(--glass-border);
             padding-bottom: 10px;
         }
-        
+
         .license-col p {
             font-size: 0.95rem;
             color: #d4d4d8;
@@ -276,14 +448,15 @@
         }
 
         /* Buttons Grid */
-        .support-grid, .social-grid {
+        .support-grid,
+        .social-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 15px;
             margin-bottom: 40px;
         }
-        
+
         .social-link {
             padding: 12px 24px;
             border-radius: 6px;
@@ -294,40 +467,129 @@
             transition: 0.3s;
             text-align: center;
             min-width: 140px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             text-transform: uppercase;
             font-family: var(--font-body);
         }
-        .social-link:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.4); filter: brightness(1.1); }
 
-        /* Social Colors */
-        .bg-saweria { background: linear-gradient(135deg, #ffc940, #ff9a00); color: #000; }
-        .bg-paypal { background: #00457C; }
-        .bg-sociabuzz { background: #01ce6f; }
-        .bg-kofi { background: #9d6c54; }
-        
-        .bg-discord { background: #5865F2; }
-        .bg-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-        .bg-tiktok { background: #000; border: 1px solid #333; box-shadow: 2px 2px 0 #FE2C55, -2px -2px 0 #25F4EE; }
-        .bg-facebook { background: #1877F2; }
-
-        @media (max-width: 900px) {
-            .license-grid { grid-template-columns: 1fr; gap: 20px; }
-            .sidebar { width: 80px; padding: 15px; }
-            .nav-item { font-size: 0; text-align: center; padding: 15px 0; }
-            .nav-item::after { content: attr(data-icon); font-size: 1.5rem; display: block; }
-            .app-brand, .status-panel, .page-subtitle, .sidebar-footer { display: none; }
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+            filter: brightness(1.1);
         }
 
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Social Colors */
+        .bg-saweria {
+            background: linear-gradient(135deg, #ffc940, #ff9a00);
+            color: #000;
+        }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
-        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+        .bg-paypal {
+            background: #00457C;
+        }
+
+        .bg-sociabuzz {
+            background: #01ce6f;
+        }
+
+        .bg-kofi {
+            background: #9d6c54;
+        }
+
+        .bg-discord {
+            background: #5865F2;
+        }
+
+        .bg-insta {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        }
+
+        .bg-tiktok {
+            background: #000;
+            border: 1px solid #333;
+            box-shadow: 2px 2px 0 #FE2C55, -2px -2px 0 #25F4EE;
+        }
+
+        .bg-facebook {
+            background: #1877F2;
+        }
+
+        @media (max-width: 900px) {
+            .license-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .sidebar {
+                width: 80px;
+                padding: 15px;
+            }
+
+            .nav-item {
+                font-size: 0;
+                text-align: center;
+                padding: 15px 0;
+            }
+
+            .nav-item::after {
+                content: attr(data-icon);
+                font-size: 1.5rem;
+                display: block;
+            }
+
+            .app-brand,
+            .status-panel,
+            .page-subtitle,
+            .sidebar-footer {
+                display: none;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="ambient-bg"></div>
@@ -339,7 +601,8 @@
 
     <aside class="sidebar">
         <div class="app-brand">
-            <img src="Assets/Other/OVERLAYTOOLLOGO.png" alt="Overlay Tool" style="max-height: 60px; object-fit: contain;">
+            <img src="Assets/Other/OVERLAYTOOLLOGO.png" alt="Overlay Tool"
+                style="max-height: 60px; object-fit: contain;">
         </div>
 
         <div class="status-panel">
@@ -358,12 +621,13 @@
 
         <div class="sidebar-footer">
             <a href="https://www.falsejl.my.id" target="_blank" class="btn-visit">Visit FalseJL</a>
-            <div style="text-align: center; font-size: 0.7rem; color: #555; margin-top: 5px;">v4.2 False MLBB Overlay Tool</div>
+            <div style="text-align: center; font-size: 0.7rem; color: #555; margin-top: 5px;">v4.2 False MLBB Overlay
+                Tool</div>
         </div>
     </aside>
 
     <main class="main-content">
-        
+
         <div id="control" class="tab-pane active">
             <div class="page-header">
                 <h1 class="page-title">Control Hub</h1>
@@ -393,19 +657,24 @@
                 <h1 class="page-title">System Documentation</h1>
                 <div class="page-subtitle">License information and usage guide.</div>
             </div>
-            
+
             <div class="readme-wrapper">
-                
+
                 <div class="info-panel">
-                    <h3 style="margin-top:0; font-family: var(--font-display); letter-spacing:1px; color: var(--accent-primary);">NETWORK CONFIGURATION</h3>
+                    <h3
+                        style="margin-top:0; font-family: var(--font-display); letter-spacing:1px; color: var(--accent-primary);">
+                        NETWORK CONFIGURATION</h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
                         <div>
                             <strong>When to use 'Copy by IP':</strong><br>
-                            If you run this Control Hub on one PC and your streaming software (OBS) is on an <em>entirely different</em> PC. This allows the streaming PC to access the overlay over the network.
+                            If you run this Control Hub on one PC and your streaming software (OBS) is on an
+                            <em>entirely different</em> PC. This allows the streaming PC to access the overlay over the
+                            network.
                         </div>
                         <div>
                             <strong>When to use 'Copy Localhost':</strong><br>
-                            If you run this Control Hub and OBS on the <strong>same</strong> PC. Localhost is faster and more stable for single-PC setups.
+                            If you run this Control Hub and OBS on the <strong>same</strong> PC. Localhost is faster and
+                            more stable for single-PC setups.
                         </div>
                     </div>
                 </div>
@@ -415,24 +684,47 @@
                 <div class="license-grid">
                     <div class="license-col">
                         <h3>1. Usage License and Restrictions</h3>
-                        <p>This web application, FalseOverlayTool, is provided free of charge. You are granted the right to use this application for both personal and commercial projects. This includes customizing, modifying, or further developing the web app to suit your needs. However, this right does not include the right to resell this web application product. Selling, reselling, or distributing this tool for profit in any form is strictly prohibited and violates its terms of use.</p>
-                        
+                        <p>This web application, FalseOverlayTool, is provided free of charge. You are granted the right
+                            to use this application for both personal and commercial projects. This includes
+                            customizing, modifying, or further developing the web app to suit your needs. However, this
+                            right does not include the right to resell this web application product. Selling, reselling,
+                            or distributing this tool for profit in any form is strictly prohibited and violates its
+                            terms of use.</p>
+
                         <h3>2. Reporting Violations</h3>
-                        <p>The spirit of this project is to support the community. If you find anyone or any entity selling this web app, please report them to us immediately. Your cooperation is crucial to keeping this tool free for everyone.</p>
-                        
+                        <p>The spirit of this project is to support the community. If you find anyone or any entity
+                            selling this web app, please report them to us immediately. Your cooperation is crucial to
+                            keeping this tool free for everyone.</p>
+
                         <h3>3. Credit & Support</h3>
-                        <p>If you find this tool useful for your tournaments or projects, we would be incredibly grateful for a credit or a shoutout. You can support us by simply placing our logo anywhere in your broadcast or event materials. While this is completely optional, your support means the world to us and helps us continue to develop and maintain this tool. Thank you for your understanding and support!</p>
+                        <p>If you find this tool useful for your tournaments or projects, we would be incredibly
+                            grateful for a credit or a shoutout. You can support us by simply placing our logo anywhere
+                            in your broadcast or event materials. While this is completely optional, your support means
+                            the world to us and helps us continue to develop and maintain this tool. Thank you for your
+                            understanding and support!</p>
                     </div>
 
                     <div class="license-col">
                         <h3>1. Lisensi Penggunaan dan Batasan</h3>
-                        <p>Aplikasi web FalseOverlayTool ini disediakan secara gratis. Anda diberikan hak untuk menggunakan aplikasi ini untuk proyek pribadi ataupun komersial. Hak ini mencakup kebebasan untuk mengkostumisasi, memodifikasi, atau mengembangkan lebih lanjut webapp ini sesuai dengan kebutuhan Anda. Namun, hak ini tidak termasuk hak untuk menjual kembali produk aplikasi web ini. Menjual, menjual kembali, atau mendistribusikan alat ini untuk mendapatkan keuntungan dalam bentuk apa pun sangat dilarang dan melanggar ketentuan penggunaannya.</p>
-                        
+                        <p>Aplikasi web FalseOverlayTool ini disediakan secara gratis. Anda diberikan hak untuk
+                            menggunakan aplikasi ini untuk proyek pribadi ataupun komersial. Hak ini mencakup kebebasan
+                            untuk mengkostumisasi, memodifikasi, atau mengembangkan lebih lanjut webapp ini sesuai
+                            dengan kebutuhan Anda. Namun, hak ini tidak termasuk hak untuk menjual kembali produk
+                            aplikasi web ini. Menjual, menjual kembali, atau mendistribusikan alat ini untuk mendapatkan
+                            keuntungan dalam bentuk apa pun sangat dilarang dan melanggar ketentuan penggunaannya.</p>
+
                         <h3>2. Laporkan Pelanggaran</h3>
-                        <p>Semangat dari proyek ini adalah untuk mendukung komunitas. Jika Anda menemukan seseorang atau pihak yang memperjualbelikan webapp ini, tolong segera laporkan kepada kami. Kerja sama Anda sangat penting untuk menjaga agar alat ini tetap gratis untuk semua orang.</p>
-                        
+                        <p>Semangat dari proyek ini adalah untuk mendukung komunitas. Jika Anda menemukan seseorang atau
+                            pihak yang memperjualbelikan webapp ini, tolong segera laporkan kepada kami. Kerja sama Anda
+                            sangat penting untuk menjaga agar alat ini tetap gratis untuk semua orang.</p>
+
                         <h3>3. Kredit & Dukungan</h3>
-                        <p>Jika teman-teman merasa alat ini bermanfaat untuk turnamen atau proyek kalian, kami akan sangat berterima kasih jika teman-teman berkenan memberikan kredit atau shoutout. Anda dapat mendukung kami hanya dengan mencantumkan logo kami di bagian manapun pada siaran atau materi acara Anda. Hal ini bersifat sepenuhnya opsional, namun dukungan dari Anda sangat berarti bagi kami untuk terus melanjutkan pengembangan dan pemeliharaan alat ini. Terima kasih atas pengertian dan dukungannya!</p>
+                        <p>Jika teman-teman merasa alat ini bermanfaat untuk turnamen atau proyek kalian, kami akan
+                            sangat berterima kasih jika teman-teman berkenan memberikan kredit atau shoutout. Anda dapat
+                            mendukung kami hanya dengan mencantumkan logo kami di bagian manapun pada siaran atau materi
+                            acara Anda. Hal ini bersifat sepenuhnya opsional, namun dukungan dari Anda sangat berarti
+                            bagi kami untuk terus melanjutkan pengembangan dan pemeliharaan alat ini. Terima kasih atas
+                            pengertian dan dukungannya!</p>
                     </div>
                 </div>
 
@@ -442,18 +734,24 @@
                 <div class="support-grid">
                     <a href="https://saweria.co/FalseJL" target="_blank" class="social-link bg-saweria">SAWERIA</a>
                     <a href="https://www.paypal.me/FalseJL" target="_blank" class="social-link bg-paypal">PAYPAL</a>
-                    <a href="https://sociabuzz.com/falsejl/tribe" target="_blank" class="social-link bg-sociabuzz">SOCIABUZZ</a>
+                    <a href="https://sociabuzz.com/falsejl/tribe" target="_blank"
+                        class="social-link bg-sociabuzz">SOCIABUZZ</a>
                     <a href="https://ko-fi.com/falsejl" target="_blank" class="social-link bg-kofi">KO-FI</a>
                 </div>
 
                 <h2 class="section-header">SOCIAL MEDIA</h2>
                 <div class="social-grid">
                     <a href="https://discord.gg/r4tNswJwbV" target="_blank" class="social-link bg-discord">Discord</a>
-                    <a href="https://www.instagram.com/false.jl/" target="_blank" class="social-link bg-insta">IG (Personal)</a>
-                    <a href="https://www.instagram.com/falsejl.esportsorg/" target="_blank" class="social-link bg-insta">IG (Esports)</a>
-                    <a href="https://www.tiktok.com/@false.jl.co" target="_blank" class="social-link bg-tiktok">TikTok (Me)</a>
-                    <a href="https://www.tiktok.com/@falsejl.esportsorganizer" target="_blank" class="social-link bg-tiktok">TikTok (Esports)</a>
-                    <a href="https://www.facebook.com/profile.php?id=61560855818677" target="_blank" class="social-link bg-facebook">Facebook</a>
+                    <a href="https://www.instagram.com/false.jl/" target="_blank" class="social-link bg-insta">IG
+                        (Personal)</a>
+                    <a href="https://www.instagram.com/falsejl.esportsorg/" target="_blank"
+                        class="social-link bg-insta">IG (Esports)</a>
+                    <a href="https://www.tiktok.com/@false.jl.co" target="_blank" class="social-link bg-tiktok">TikTok
+                        (Me)</a>
+                    <a href="https://www.tiktok.com/@falsejl.esportsorganizer" target="_blank"
+                        class="social-link bg-tiktok">TikTok (Esports)</a>
+                    <a href="https://www.facebook.com/profile.php?id=61560855818677" target="_blank"
+                        class="social-link bg-facebook">Facebook</a>
                 </div>
 
             </div>
@@ -461,13 +759,13 @@
 
     </main>
 
-<script>
+    <script>
         const serverPort = 3000;
         let serverIP = 'localhost';
 
         // --- DATA FILES ---
-        const controlFiles = ['control.html', 'controlban6.html', 'drawcontrol.html', 'notifcontrol.html', 'postgamecontrol.html', 'schedulecontrol.html', 'costumoverlaycontrol.html'];
-        const displayFiles = ['display.html', 'display2.html', 'displaycostum.html', 'displayban6.html', 'display2ban6.html', 'displaycostumban6.html', 'postdraft.html', 'postdraft2.html', 'postdraftcostum.html', 'scoreboard.html', 'scoreboardcostum.html', 'previousdraft.html', 'notifdisplay.html', 'builds.html', 'globalban.html'];
+        const controlFiles = ['control.html', 'controlban6.html', 'drawcontrol.html', 'notifcontrol.html', 'postgamecontrol.html', 'schedulecontrol.html', 'costumoverlaycontrol.html', 'preloadcontrol.html'];
+        const displayFiles = ['display.html', 'display2.html', 'displaycostum.html', 'displayban6.html', 'display2ban6.html', 'displaycostumban6.html', 'postdraft.html', 'postdraft2.html', 'postdraftcostum.html', 'scoreboard.html', 'scoreboardcostum.html', 'previousdraft.html', 'notifdisplay.html', 'builds.html', 'globalban.html', 'preload.html'];
         const utilityFiles = ['postgame.html', 'mvpdisplay.html', 'scheduledisplay.html', 'drawdisplay.html', 'drawdisplay2.html', 'drawdisplay3.html', 'drawfinal.html'];
 
         // --- IP INITIALIZATION ---
@@ -494,9 +792,9 @@
         // --- CARD GENERATOR ---
         function createCard(filename, type) {
             const title = filename.replace('.html', '').replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-            
+
             let buttons = '';
-            
+
             if (type === 'control') {
                 buttons = `
                     <button class="action-btn btn-primary open-btn" data-url="http://${serverIP}:${serverPort}/${filename}">OPEN PANEL</button>
@@ -534,16 +832,16 @@
                 return new Promise((resolve, reject) => {
                     let textArea = document.createElement("textarea");
                     textArea.value = text;
-                    
+
                     // Sembunyikan textarea agar tidak terlihat
                     textArea.style.position = "fixed";
                     textArea.style.left = "-9999px";
                     textArea.style.top = "0";
                     document.body.appendChild(textArea);
-                    
+
                     textArea.focus();
                     textArea.select();
-                    
+
                     try {
                         const successful = document.execCommand('copy');
                         document.body.removeChild(textArea);
@@ -572,10 +870,10 @@
                 if (e.target.closest('[data-tab-target]')) {
                     const btn = e.target.closest('[data-tab-target]');
                     const targetId = btn.dataset.tabTarget;
-                    
+
                     document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    
+
                     document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
                     document.querySelector(targetId).classList.add('active');
                 }
@@ -589,11 +887,11 @@
                 if (e.target.classList.contains('copy-btn')) {
                     const btn = e.target;
                     const url = btn.dataset.url;
-                    
+
                     try {
                         // Panggil fungsi copy custom kita
                         await copyTextToClipboard(url);
-                        
+
                         const originalText = btn.textContent;
                         btn.textContent = "COPIED!";
                         btn.classList.add('btn-copied');
@@ -612,4 +910,5 @@
         renderApp();
     </script>
 </body>
+
 </html>

@@ -2,14 +2,14 @@
   "draftdata": {
     "timer": "60",
     "timerRunning": false,
-    "current_phase": 4,
+    "current_phase": 0,
     "blueside": {
       "ban": [
         {
-          "hero": "/Assets/HeroPick/alucard.png"
+          "hero": ""
         },
         {
-          "hero": "/Assets/HeroPick/joy.png"
+          "hero": ""
         },
         {
           "hero": ""
@@ -23,10 +23,10 @@
       ],
       "pick": [
         {
-          "hero": ""
+          "hero": "/Assets/HeroPick/joy.png"
         },
         {
-          "hero": ""
+          "hero": "/Assets/HeroPick/sora.png"
         },
         {
           "hero": ""
@@ -42,10 +42,10 @@
     "redside": {
       "ban": [
         {
-          "hero": "/Assets/HeroPick/hilda.png"
+          "hero": ""
         },
         {
-          "hero": "/Assets/HeroPick/sora.png"
+          "hero": ""
         },
         {
           "hero": ""
@@ -75,6 +75,6 @@
         }
       ]
     },
-    "timer_running": true
+    "timer_running": false
   }
 }

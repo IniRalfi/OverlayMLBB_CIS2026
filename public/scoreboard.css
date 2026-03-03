@@ -1,152 +1,138 @@
 @font-face {
-    font-family: 'myfonts';
-    src: url('Assets/Font/big_noodle_titling.ttf') format('truetype');
-
-  }
-
-  /* Menggunakan font di seluruh halaman */
-  body {
-    font-family: 'myfonts', sans-serif;
-
-    
-  }
-
-
-.scoreboard{
-    width: 1920px;
-    height: 1080px;
-    background-image: url(Assets/Other/scoreboard.png);
+  font-family: "myfonts";
+  src: url("Assets/Font/big_noodle_titling.ttf") format("truetype");
 }
 
-.upper{
-    width: 1920px;
-    height: 94px;
-    
-  
-    display: flex;
+/* Menggunakan font di seluruh halaman */
+body {
+  font-family: "myfonts", sans-serif;
 }
 
-.lower{
-    width: 1920px;
-    height: 30px;
-
-    display: flex;
+.scoreboard {
+  width: 1920px;
+  height: 1080px;
+  background-image: url(Assets/Other/scoreboard.png);
 }
 
-.mapbox{
-    width: 341.75px;
-    height: 100%;
-    
+.upper {
+  width: 1920px;
+  height: 94px;
+
+  display: flex;
 }
 
-.gb1{
-    width:52.08px ;
+.lower {
+  width: 1920px;
+  height: 30px;
+
+  display: flex;
 }
 
-.teamname{
-    width: 616px;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    font-size: 30px;
-    color: #fff;
-
-    margin-top: -32px
-
+.mapbox {
+  width: 341.75px;
+  height: 100%;
 }
 
-.morelower{
-    width: 1920px;
-    height: 30px;
-    margin-top: 11px;
-   
-    display: flex;
-   
+.gb1 {
+  width: 52.08px;
 }
 
-.morebox{
-    width: 822.5px;
-    height: 100%;
-    
+.teamname {
+  width: 616px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: 30px;
+  color: #fff;
+
+  margin-top: -32px;
 }
 
-.score{
-    width: 48px;
-    height: auto;
-    
-    color: #350066;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size:48px;
+.morelower {
+  width: 1920px;
+  height: 30px;
+  margin-top: 11px;
 
-
+  display: flex;
 }
 
-.tn{
-    width: 302px;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 38px;
-    color: #fff;
+.morebox {
+  width: 822.5px;
+  height: 100%;
 }
 
-.midmorebox{
-    width: 142.45px;
-    height: auto;
-  
+.score {
+  width: 48px;
+  height: auto;
+
+  color: #350066;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
 }
 
-.logo{
-    width: 114.67px;
-    height: 114.67px;
-  
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.tn {
+  width: 302px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  color: #fff;
 }
 
-.logo img{
-    width: 95px;
-    height: 95px;
-    object-fit: contain;
+.midmorebox {
+  width: 142.45px;
+  height: auto;
 }
 
-.uppermid{
-    width: 906.61px;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-   
+.logo {
+  width: 114.67px;
+  height: 114.67px;
+
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.midscorename{
-    width: 86.61;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+.logo img {
+  width: 95px;
+  height: 95px;
+  object-fit: contain;
 }
 
-.teamnamesc{
-    width: 350px;
-    height: 100%;
-    display: flex;
-    margin-top: -37px;
-}
-.gb2{
-    width: 166.61px;
-    height: 100%;
+.uppermid {
+  width: 906.61px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.hide{
-    width: 0px;
-    height: 0px;
-    opacity: 0;
+.midscorename {
+  width: 86.61;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.teamnamesc {
+  width: 350px;
+  height: 100%;
+  display: flex;
+  margin-top: -37px;
+}
+.gb2 {
+  width: 166.61px;
+  height: 100%;
+}
+
+.hide {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
 }
