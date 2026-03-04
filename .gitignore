@@ -1,2 +1,48 @@
-node_modules
-public/Assets
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Public assets & uploads (Dynamic files that shouldn't be pushed)
+public/Assets/
+public/database/savedmatch/
+
+# Temp Excel / Editor Files
+~$*.xlsm
+~$*.xlsx
+~$*.doc
+~$*.docx
+
+# Environment variables and configs
+.env
+.env.test
+serverip.txt
+
+# Media Files in root
+*.mov
+*.mp4
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and Editor directories
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

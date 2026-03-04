@@ -23,10 +23,10 @@
       ],
       "pick": [
         {
-          "hero": "/Assets/HeroPick/joy.png"
+          "hero": ""
         },
         {
-          "hero": "/Assets/HeroPick/sora.png"
+          "hero": ""
         },
         {
           "hero": ""

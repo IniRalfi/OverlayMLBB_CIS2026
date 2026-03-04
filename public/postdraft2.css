@@ -7,12 +7,13 @@
 
 /* ── CIS 2026 COLOR TOKENS ── */
 :root {
-  --blue-primary: #00c8ff;
-  --blue-panel: rgba(0, 18, 60, 0.85);
-  --blue-border: rgba(0, 200, 255, 0.55);
-  --blue-glow: rgba(0, 200, 255, 0.35);
-  --blue-deep: #003080;
-  --nameholder-bg: rgba(0, 12, 45, 0.9);
+  --blue-primary: #1a9fff; /* biru cerah CIS */
+  --blue-accent: #0e5eb7; /* biru utama CIS 2026 */
+  --blue-panel: rgba(6, 18, 55, 0.92); /* panel biru gelap */
+  --blue-border: rgba(26, 159, 255, 0.65);
+  --blue-glow: rgba(26, 159, 255, 0.4);
+  --blue-deep: #061237; /* biru sangat gelap */
+  --nameholder-bg: rgba(4, 12, 42, 0.95);
   --text-white: #ffffff;
 }
 
@@ -71,7 +72,8 @@ body {
   margin-top: 25px;
   letter-spacing: 2px;
   text-shadow:
-    0 0 18px var(--blue-primary),
+    0 0 20px var(--blue-primary),
+    0 0 40px rgba(26, 159, 255, 0.5),
     2px 3px 5px #000000;
 }
 
@@ -87,7 +89,8 @@ body {
   margin-top: 25px;
   letter-spacing: 2px;
   text-shadow:
-    0 0 18px var(--blue-primary),
+    0 0 20px var(--blue-primary),
+    0 0 40px rgba(26, 159, 255, 0.5),
     2px 3px 5px #000000;
 }
 
@@ -107,7 +110,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   color: var(--text-white);
-  text-shadow: 0 0 16px var(--blue-primary);
+  text-shadow:
+    0 0 20px var(--blue-primary),
+    0 0 40px rgba(26, 159, 255, 0.6);
 }
 
 .midscore {
@@ -115,9 +120,10 @@ body {
 }
 
 .midscore img {
-  width: 250px;
+  width: 120px;
   scale: 0.6;
-  margin-top: 80px;
+  margin-top: 100px;
+  margin-left: 60px;
 }
 
 /* ═══════════════════════════════════════
@@ -138,14 +144,20 @@ body {
   position: relative;
   border: 2px solid var(--blue-border);
   box-shadow:
-    0 0 12px var(--blue-glow),
-    inset 0 0 8px rgba(0, 200, 255, 0.1);
+    0 0 16px var(--blue-glow),
+    0 0 4px rgba(26, 159, 255, 0.8),
+    inset 0 0 12px rgba(14, 94, 183, 0.15);
   margin: -1px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--blue-panel);
+  background: linear-gradient(
+    180deg,
+    rgba(14, 30, 80, 0.95) 0%,
+    rgba(6, 18, 55, 0.92) 60%,
+    rgba(4, 10, 38, 0.98) 100%
+  );
 }
 
 .image-box {
@@ -237,7 +249,9 @@ body {
   border-bottom: 2px solid var(--blue-border);
   border-left: 2px solid var(--blue-border);
   border-right: 2px solid var(--blue-border);
-  box-shadow: 0 0 8px var(--blue-glow);
+  box-shadow:
+    0 0 12px var(--blue-glow),
+    0 0 3px rgba(26, 159, 255, 0.7);
 }
 
 .playerimagebox img {
@@ -287,10 +301,13 @@ body {
   width: 75%;
   height: 75%;
   object-fit: contain;
-  filter: sepia(100%) hue-rotate(210deg) saturate(300%);
+  /* Filter: putih → biru CIS #1a9fff */
+  filter: brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(185deg) brightness(1.1);
 }
 
 .lane-icon {
   padding: 3px;
-  background-color: var(--blue-primary);
+  background-color: var(--blue-accent);
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(26, 159, 255, 0.5);
 }

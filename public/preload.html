@@ -105,7 +105,7 @@
         <span class="ticker-dot"></span>
         BERSIAP UNTUK PERTANDINGAN
         <span class="ticker-dot"></span>
-        CLASH OF INTELLIGENCE SERIES
+        CELEBRATION OF INFORMATION SYSTEM
       </span>
       <!-- Duplikat untuk seamless loop -->
       <span class="ticker-item">
@@ -125,15 +125,11 @@
     </div>
   </div>
 
-  <!-- Hidden data nodes — diisi oleh displaynicknamelogo.js -->
+  <!-- Hidden data nodes (tidak dipakai langsung, tapi biarkan untuk kompatibilitas) -->
   <div style="display:none;">
-    <div id="name-box-1" class="name-box"></div>
-    <div id="name-box-2" class="name-box"></div>
-    <div id="name-box-8" class="name-box"></div>
-    <div id="name-box-9" class="name-box"></div>
+    <img id="displayImage1" alt="">
+    <img id="displayImage2" alt="">
   </div>
-
-  <script src="script/displaynicknamelogo.js"></script>
 
   <script src="crossclient.js"></script>
   <script>
@@ -194,40 +190,54 @@
     }
 
     /* ══════════════════════
-       UPDATE TIM & SKOR
+       UPDATE TIM & SKOR — fetch langsung dari /api/matchdata
     ══════════════════════ */
-    window.updateDisplay = function () {
-      const nb1 = document.getElementById('name-box-1');
-      const nb2 = document.getElementById('name-box-2');
-      const nb8 = document.getElementById('name-box-8');
-      const nb9 = document.getElementById('name-box-9');
-      const img1 = document.getElementById('displayImage1');
-      const img2 = document.getElementById('displayImage2');
+    let _lastMatchState = '';
 
-      const team1 = (nb1?.textContent?.trim()) || localStorage.getItem('name-box-1') || 'TEAM BLUE';
-      const team2 = (nb8?.textContent?.trim()) || localStorage.getItem('name-box-8') || 'TEAM RED';
-      const score1 = (nb2?.textContent?.trim()) || localStorage.getItem('name-box-2') || '0';
-      const score2 = (nb9?.textContent?.trim()) || localStorage.getItem('name-box-9') || '0';
+    async function pollMatchData() {
+      try {
+        const res = await fetch('/api/matchdata?t=' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        const hash = JSON.stringify(data);
+        if (hash === _lastMatchState) return;
+        _lastMatchState = hash;
 
-      document.getElementById('preload-team1').textContent = team1.toUpperCase();
-      document.getElementById('preload-team2').textContent = team2.toUpperCase();
-      document.getElementById('preload-score1').textContent = score1;
-      document.getElementById('preload-score2').textContent = score2;
-      document.getElementById('ticker-team1').textContent = team1.toUpperCase();
-      document.getElementById('ticker-team2').textContent = team2.toUpperCase();
-      document.querySelectorAll('.ticker-team1-clone').forEach(el => el.textContent = team1.toUpperCase());
-      document.querySelectorAll('.ticker-team2-clone').forEach(el => el.textContent = team2.toUpperCase());
+        const blue = data?.teamdata?.blueteam;
+        const red = data?.teamdata?.redteam;
+        if (!blue || !red) return;
 
-      // Logo sync dari displayImage yang diisi displaynicknamelogo.js
-      const logo1src = img1?.src || '';
-      const logo2src = img2?.src || '';
-      if (logo1src && !logo1src.endsWith('/') && !logo1src.includes('nologo')) {
-        const el = document.getElementById('preload-logo1'); el.src = logo1src; el.style.display = 'block';
-      }
-      if (logo2src && !logo2src.endsWith('/') && !logo2src.includes('nologo')) {
-        const el = document.getElementById('preload-logo2'); el.src = logo2src; el.style.display = 'block';
-      }
-    };
+        const team1 = (blue.teamname || 'TEAM BLUE').toUpperCase();
+        const team2 = (red.teamname || 'TEAM RED').toUpperCase();
+        const score1 = blue.score ?? '0';
+        const score2 = red.score ?? '0';
+
+        document.getElementById('preload-team1').textContent = team1;
+        document.getElementById('preload-team2').textContent = team2;
+        document.getElementById('preload-score1').textContent = score1;
+        document.getElementById('preload-score2').textContent = score2;
+        document.getElementById('ticker-team1').textContent = team1;
+        document.getElementById('ticker-team2').textContent = team2;
+        document.querySelectorAll('.ticker-team1-clone').forEach(el => el.textContent = team1);
+        document.querySelectorAll('.ticker-team2-clone').forEach(el => el.textContent = team2);
+
+        // Logo — gunakan base64/URL yang disimpan di matchdatateam.json
+        const applyLogo = (elId, logoData) => {
+          const el = document.getElementById(elId);
+          if (!el) return;
+          if (logoData && logoData.trim() !== '') {
+            el.src = logoData;
+            el.style.display = 'block';
+            el.onerror = () => { el.style.display = 'none'; };
+          } else {
+            el.style.display = 'none';
+          }
+        };
+        applyLogo('preload-logo1', blue.logo);
+        applyLogo('preload-logo2', red.logo);
+
+      } catch (e) { /* server belum siap, abaikan */ }
+    }
 
     /* ══════════════════════
        INIT + POLLING — ambil data dari /api/preload setiap 500ms
@@ -249,10 +259,10 @@
 
     // Load pertama kali
     pollPreload();
-    // Poll tiap 500ms untuk real-time update dari preloadcontrol
+    pollMatchData();
+    // Poll tiap 500ms untuk real-time update
     setInterval(pollPreload, 500);
-
-    window.updateDisplay();
+    setInterval(pollMatchData, 1000);
   </script>
 
 </body>
